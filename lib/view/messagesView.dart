@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/messageRow.dart';
 
 class MessagesView extends StatelessWidget {
@@ -10,13 +11,13 @@ class MessagesView extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Text(name),
       ),
-     /* body: Center(
-        child: ListView(
-          children: [
-            MessageRow("Lorem ipsum dolor sit Amet.", "6:45", true)
-          ],
-        ),
-      ), */
+      child: (
+          ListView(
+              children: [
+                MessageRow("Lorem ipsum dolor sit Amet.", "6:45", true)
+              ],
+          )
+      ),
     );
   }
 
