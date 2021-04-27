@@ -7,19 +7,31 @@ class MessageRow extends ListTile {
 
   @override
   Widget build(BuildContext context) {
-
     if (isFromMe) {
         return
-           Container(
-              alignment: Alignment.centerRight,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
-                color: Colors.cyan,
-              ),
-              height: 50,
-              padding: EdgeInsets.all(7),
-              child: Text(message),
-            );
+           Column(
+             mainAxisAlignment: MainAxisAlignment.end,
+             crossAxisAlignment: CrossAxisAlignment.end,
+             children: [
+               Container(
+                 alignment: Alignment.center,
+                 decoration: BoxDecoration(
+                   borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
+                   color: Colors.cyan,
+                  // padding: EdgeInsets.all(7),
+                 ),
+                 width: 300,
+                 height: 50,
+                 child: Text(
+                     message,
+                   style: TextStyle(
+                     fontSize: 14,
+                     color: Colors.black,
+                   ),
+                 ),
+               )
+             ]
+           );
 
     } else {
         return Container(
