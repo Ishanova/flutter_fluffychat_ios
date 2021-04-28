@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_fluffychat_ios/view/messagesView.dart';
 
 class ChatRow extends ListTile {
   String name, message, date;
   int unReadCount;
   bool isRead;
+  Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
 
   @override
   Widget build(BuildContext context) {
@@ -17,8 +19,8 @@ class ChatRow extends ListTile {
       },
       child: Container(
           child: Row(
-            // mainAxisAlignment: MainAxisAlignment.start,
-            //crossAxisAlignment: CrossAxisAlignment.center,
+            //mainAxisAlignment: MainAxisAlignment.start,
+            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
@@ -63,7 +65,7 @@ class ChatRow extends ListTile {
                       ),
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.blueAccent,
+                      color: contrastColor,
                       shape: BoxShape.circle,
                     ),
                     width: 20,

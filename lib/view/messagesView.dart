@@ -34,7 +34,7 @@ class MessagesView extends StatelessWidget {
             )
 
       ),
-      child: (
+       child: (
           ListView(
               children: [
                 MessageRow("Lorem ipsum dolor sit Amet.", "6:45", true)
