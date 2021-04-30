@@ -6,8 +6,9 @@ import 'package:flutter_fluffychat_ios/view/messagesView.dart';
 class ChatRow extends ListTile {
   String name, message, date;
   int unReadCount;
-  bool isRead;
+  bool isRead, isMute, isFromMe, isPrivate;
   Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
+  Color backgroundColor = const Color.fromARGB(125, 67, 66, 68);
 
   @override
   Widget build(BuildContext context) {
@@ -33,43 +34,98 @@ class ChatRow extends ListTile {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    //alignment: Alignment.centerLeft,
-                    // color: Colors.pink,
                     width: 250,
-                    child: Text(name, style: new TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold
-                    ),),
+                    child: Row(
+                      children: [
+                        Text(name, style: new TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold
+                        ),),
+                        Visibility(
+                        visible: isMute ? true : false,
+                          child: Container(
+                              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+                              child: Icon(
+                              Icons.volume_off,
+                                size: 18,
+                                color: backgroundColor,
+                              ),
+                          ),
+                        )
+                      ],
+                    )
                   ),
                   Row(children: [
                     Container(
-                      // color: Colors.deepPurple,
-                      width: 250,
-                      child: Text(message),
+                        child:
+                        Text(
+                          (isFromMe ? "Вы: " : (isPrivate ? "" : (name + ": "))),
+                          style: TextStyle (
+                            color: backgroundColor
+                          ),
+                        ),
                     ),
                     Container(
-                      child: Text(date),
+                        //width: 250,
+                        child: Text(message,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ),
+                    ),
+    /*Container(
+                      width: 250,
+                      child: isPrivate ?
+                      Text(
+                          (isFromMe ? "Вы: " : "") + message,
+                          style: TextStyle (
+                            //color: backgroundColor
+                          ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ) :
+                      Text(
+                          (isFromMe ? "Вы: " : (name + ": ")) + message,
+                          style: TextStyle (
+                           // color: backgroundColor
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                        softWrap: true,
+                      ),
+                    ),*/
+                    Container(
+                      margin: EdgeInsets.symmetric(horizontal: 6),
+                      child: Text(date,
+                        style: TextStyle(
+                          color: backgroundColor,
+                        ),
+                      ),
                     ),
                   ])
                 ],
               ),
-              Visibility(
-                visible: isRead ? false : true,
-                child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                    child: Text("$unReadCount",
-                      textAlign: TextAlign.center,
-                      style: new TextStyle(
-                          fontSize: 14.0,
-                          color: Colors.white
+              Expanded(
+                child: Visibility(
+                  visible: isRead ? false : true,
+                  child: Container(
+                      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                      child: Text("$unReadCount",
+                        textAlign: TextAlign.center,
+                        style: new TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.white
+                        ),
                       ),
-                    ),
-                    decoration: BoxDecoration(
-                      color: contrastColor,
-                      shape: BoxShape.circle,
-                    ),
-                    width: 20,
-                    height: 20
+                      decoration: BoxDecoration(
+                        color: isMute ? backgroundColor : contrastColor,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      width: 20,
+                      height: 20
+                  ),
                 ),
               )
             ],
@@ -78,11 +134,14 @@ class ChatRow extends ListTile {
     );
   }
 
-  ChatRow(String name, message, date, int unReadCount, bool isRead) {
+  ChatRow(String name, message, date, int unReadCount, bool isRead, isMute, isFromMe, isPrivate) {
     this.name = name;
     this.message = message;
     this.date = date;
     this.unReadCount = unReadCount;
     this.isRead = isRead;
+    this.isMute = isMute;
+    this.isFromMe = isFromMe;
+    this.isPrivate = isPrivate;
   }
 }
