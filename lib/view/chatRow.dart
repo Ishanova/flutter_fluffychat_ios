@@ -1,12 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_fluffychat_ios/newModels/Chat.dart';
 import 'package:flutter_fluffychat_ios/view/messagesView.dart';
 
 class ChatRow extends ListTile {
   String name, message, date;
   int unReadCount;
   bool isRead, isMute, isFromMe, isPrivate;
+
   Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
   Color backgroundColor = const Color.fromARGB(125, 67, 66, 68);
 
@@ -21,12 +23,29 @@ class ChatRow extends ListTile {
       child: Container(
           child: Row(
             children: [
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
-                ),
+              Stack(
+                alignment: AlignmentDirectional.center,
+                children: [
+                  Container(
+                      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                      width: 63,
+                      height: 63,
+                      decoration: BoxDecoration(
+                        color: Colors.grey,
+                        borderRadius: BorderRadius.circular(30),
+                      )
+                  ),
+
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
+                    ),
+                  ),
+
+
+                ],
               ),
 
               Expanded(
@@ -59,7 +78,7 @@ class ChatRow extends ListTile {
                         Container(
                           child:
                           Text(
-                            (isFromMe ? "Вы: " : (isPrivate ? "" : (name + ": "))),
+                            (isFromMe ? "Вы: " : (isPrivate ? "" : (NameView(name) + ": "))),
                             style: TextStyle (
                                 color: backgroundColor
                             ),
@@ -128,4 +147,8 @@ class ChatRow extends ListTile {
     this.isFromMe = isFromMe;
     this.isPrivate = isPrivate;
   }
+}
+
+String NameView(String fullname){
+  return fullname.substring(0, fullname.indexOf(' ') + 2) + '.';
 }

@@ -1,6 +1,6 @@
 class OnlineStatus {
   bool isOnline;
-  String lastDate, lastTime;
+  String lastDate, lastTime; //дата последнего посещения, время последнего посещения
 
 
   OnlineStatus(bool isOnline,

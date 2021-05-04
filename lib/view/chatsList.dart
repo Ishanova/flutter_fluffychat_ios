@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/model/chat.dart';
+//import 'package:flutter_fluffychat_ios/newModels/Chat.dart';
 import 'chatRow.dart';
 
 List chats = [

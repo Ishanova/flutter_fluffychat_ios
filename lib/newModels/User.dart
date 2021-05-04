@@ -2,9 +2,9 @@ import 'Chat.dart';
 import 'OnlineStatus.dart';
 
 class User {
-  String userID, image;
+  String userID, image; // имя и аватарка
   OnlineStatus onlineStatus;
-  List<Chat> mutedChats;
+  List<Chat> mutedChats; //список заглушенных чатов
 
 
   User(String userID, image,
