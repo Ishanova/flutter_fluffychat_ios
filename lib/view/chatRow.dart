@@ -20,8 +20,6 @@ class ChatRow extends ListTile {
       },
       child: Container(
           child: Row(
-            //mainAxisAlignment: MainAxisAlignment.start,
-            //crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
                 margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
@@ -30,103 +28,89 @@ class ChatRow extends ListTile {
                   child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 250,
-                    child: Row(
-                      children: [
-                        Text(name, style: new TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold
-                        ),),
-                        Visibility(
-                        visible: isMute ? true : false,
-                          child: Container(
-                              margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
-                              child: Icon(
-                              Icons.volume_off,
-                                size: 18,
-                                color: backgroundColor,
-                              ),
+
+              Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                          width: 250,
+                          child: Row(
+                            children: [
+                              Text(name, style: new TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold
+                              ),),
+                              Visibility(
+                                visible: isMute ? true : false,
+                                child: Container(
+                                  margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+                                  child: Icon(
+                                    Icons.volume_off,
+                                    size: 18,
+                                    color: backgroundColor,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                      ),
+                      Row(children: [
+                        Container(
+                          child:
+                          Text(
+                            (isFromMe ? "Вы: " : (isPrivate ? "" : (name + ": "))),
+                            style: TextStyle (
+                                color: backgroundColor
+                            ),
                           ),
-                        )
-                      ],
-                    )
+                        ),
+                        Container(
+                          //width: 100,
+                          child: Text(message,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
+                            softWrap: true,
+                          ),
+                        ),
+
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 6),
+                          child: Text(date,
+                            style: TextStyle(
+                              color: backgroundColor,
+                            ),
+                          ),
+                        ),
+                      ])
+                    ],
                   ),
-                  Row(children: [
-                    Container(
-                        child:
-                        Text(
-                          (isFromMe ? "Вы: " : (isPrivate ? "" : (name + ": "))),
-                          style: TextStyle (
-                            color: backgroundColor
-                          ),
-                        ),
-                    ),
-                    Container(
-                        //width: 250,
-                        child: Text(message,
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        softWrap: true,
-                      ),
-                    ),
-    /*Container(
-                      width: 250,
-                      child: isPrivate ?
-                      Text(
-                          (isFromMe ? "Вы: " : "") + message,
-                          style: TextStyle (
-                            //color: backgroundColor
-                          ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        softWrap: true,
-                      ) :
-                      Text(
-                          (isFromMe ? "Вы: " : (name + ": ")) + message,
-                          style: TextStyle (
-                           // color: backgroundColor
-                        ),
-                        overflow: TextOverflow.ellipsis,
-                        maxLines: 1,
-                        softWrap: true,
-                      ),
-                    ),*/
-                    Container(
-                      margin: EdgeInsets.symmetric(horizontal: 6),
-                      child: Text(date,
-                        style: TextStyle(
-                          color: backgroundColor,
-                        ),
-                      ),
-                    ),
-                  ])
-                ],
+                flex: 5,
               ),
+
               Expanded(
                 child: Visibility(
                   visible: isRead ? false : true,
-                  child: Container(
-                      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                      child: Text("$unReadCount",
-                        textAlign: TextAlign.center,
-                        style: new TextStyle(
-                            fontSize: 14.0,
-                            color: Colors.white
+                  child: Align(
+                    child: Container(
+                        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                        padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
+                        child: Text("$unReadCount",
+                          textAlign: TextAlign.center,
+                          style: new TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.white
+                          ),
                         ),
-                      ),
-                      decoration: BoxDecoration(
-                        color: isMute ? backgroundColor : contrastColor,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      width: 20,
-                      height: 20
+                        decoration: BoxDecoration(
+                          color: isMute ? backgroundColor : contrastColor,
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                    ),
                   ),
                 ),
+                flex: 1,
               )
             ],
           )
