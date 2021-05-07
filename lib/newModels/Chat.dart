@@ -13,19 +13,19 @@ class Chat {
     this.messageList = messageList;
     this.isStudy = isStudy;
   }
-  List<User> getMemberList(){
+  /*List<User> getMemberList(){
     return memberList;
   }
   List<Message> getMessageList(){
     return messageList;
-  }
+  } */
   String getChatName(String userID){
     if(chatName == ""){
-      //return this.companion(userID);
+      return this.companion(userID);
     }
     return chatName;
   }
-  /*String companion(String userID){
+  String companion(String userID){
     for(int i = 0; i < memberList.length(); i++){
       if(memberList[i].userID == userID){
         continue;
@@ -33,6 +33,6 @@ class Chat {
       return memberList[i].userID;
     }
     return "default name";
-  } */
+  }
 }
 

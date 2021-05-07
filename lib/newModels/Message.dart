@@ -1,15 +1,14 @@
 import 'User.dart';
 
 class Message {
-  User sender; //отправитель
+  String senderID; //отправитель
   String date, time, messageText; //дата, время и текст сообщения
-  List<User> readList; //список прочитавщих сообщение
+  List<String> readList; //список прочитавщих сообщение
 
 
-  Message(User sender,
-      String date, time, messageText,
-      List<User> readList) {
-      this.sender = sender;
+  Message(String senderID,
+      String date, time, messageText, readList) {
+      this.senderID = senderID;
       this.date = date;
       this.time = time;
       this.messageText = messageText;
