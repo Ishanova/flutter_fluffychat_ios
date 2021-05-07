@@ -4,15 +4,15 @@ import 'OnlineStatus.dart';
 class User {
   String userID, image; // имя и аватарка
   OnlineStatus onlineStatus;
-  List<Chat> mutedChats; //список заглушенных чатов
+  List<String> mutedChatsName; //список заглушенных чатов
 
 
   User(String userID, image,
       OnlineStatus onlineStatus,
-      List<Chat> mutedChats) {
+      List<String> mutedChatsName) {
     this.userID = userID;
     this.image = image;
     this.onlineStatus = onlineStatus;
-    this.mutedChats = mutedChats;
+    this.mutedChatsName = mutedChatsName;
   }
 }
