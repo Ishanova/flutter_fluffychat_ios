@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fluffychat_ios/newModels/Chat.dart';
+import 'package:flutter_fluffychat_ios/models/user.dart';
+import 'package:flutter_fluffychat_ios/models/message.dart';
+import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
 import 'package:flutter_fluffychat_ios/view/messagesView.dart';
+import 'package:flutter_fluffychat_ios/models/chat.dart';
 
 class ChatRow extends ListTile {
-  String name, message, date;
-  int unReadCount;
-  bool isRead, isMute, isFromMe, isPrivate;
+  Chat toRow;
+  String userID;
 
   Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
   Color backgroundColor = const Color.fromARGB(125, 67, 66, 68);
@@ -17,7 +19,7 @@ class ChatRow extends ListTile {
     return InkWell(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MessagesView(name))
+            MaterialPageRoute(builder: (context) => MessagesView("Иван Петров"))
         );
       },
       child: Container(
@@ -56,12 +58,13 @@ class ChatRow extends ListTile {
                           width: 250,
                           child: Row(
                             children: [
-                              Text(name, style: new TextStyle(
+                              Text("Иван Петров", style: new TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold
                               ),),
                               Visibility(
-                                visible: isMute ? true : false,
+                                visible: this.isMute(User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"),
+                                    {}),) ? true : false,
                                 child: Container(
                                   margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
                                   child: Icon(
@@ -74,7 +77,7 @@ class ChatRow extends ListTile {
                             ],
                           )
                       ),
-                      Row(children: [
+                      /*Row(children: [
                         Container(
                           child:
                           Text(
@@ -130,22 +133,19 @@ class ChatRow extends ListTile {
                   ),
                 ),
                 flex: 1,
-              )
+              )*/
             ],
           )
       ),
-    );
+  ])));
   }
 
-  ChatRow(String name, message, date, int unReadCount, bool isRead, isMute, isFromMe, isPrivate) {
-    this.name = name;
-    this.message = message;
-    this.date = date;
-    this.unReadCount = unReadCount;
-    this.isRead = isRead;
-    this.isMute = isMute;
-    this.isFromMe = isFromMe;
-    this.isPrivate = isPrivate;
+  ChatRow(Chat toRow, String userID) {
+    this.toRow = toRow;
+    this.userID = userID;
+  }
+  bool isMute(User toCompare){
+    return toRow.memberList.contains(toCompare);
   }
 }
 
