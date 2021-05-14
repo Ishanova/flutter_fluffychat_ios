@@ -13,7 +13,7 @@ class Chat {
     this.messageList = messageList;
     this.isStudy = isStudy;
   }
-  /*List<User> getMemberList(){
+  Set<User> getMemberList(){
     return memberList;
   }
   List<Message> getMessageList(){
@@ -26,13 +26,22 @@ class Chat {
     return chatName;
   }
   String companion(String userID){
-    for(int i = 0; i < memberList.length(); i++){
-      if(memberList[i].userID == userID){
+    for(int i = 0; i < memberList.length; i++){
+      if(memberList.toList()[i].userID == userID){
         continue;
       }
-      return memberList[i].userID;
+      return memberList.toList()[i].userID;
     }
     return "default name";
-  }*/
+  }
+
+  int unReadCount (String userID) {
+    int count = 0;
+    for (int i=messageList.length-1; i!=0; i--) {
+      if (messageList[i].readList.contains(userID)) {break;}
+      count++;
+    }
+   return count;
+  }
 }
 
