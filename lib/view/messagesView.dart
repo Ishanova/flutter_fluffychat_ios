@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fluffychat_ios/models/chat.dart';
+import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/messageRow.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
 class MessagesView extends StatelessWidget {
-  String name;
+  User user;
+  Chat toView;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +19,7 @@ class MessagesView extends StatelessWidget {
                 children: [
                   Column(
                     children: [
-                      Text(name),
+                      Text(toView.getChatName(user.userID)),
                       Text("был в сети вчера в 18:23",
                         style: TextStyle(
                           color: Colors.black26,
@@ -37,15 +40,19 @@ class MessagesView extends StatelessWidget {
       ),
        child: (
           ListView(
-              children: [
-                MessageRow("Lorem ipsum dolor sit Amet.", "6:45", true)
-              ],
+              children: toView.messageList.map((message)  {
+                return new MessageRow(message, user);
+              }).toList()
+              //children: [
+              //  MessageRow("Lorem ipsum dolor sit Amet.", "6:45", true)
+             // ],
           )
       ),
     );
   }
 
-  MessagesView(String name) {
-    this.name = name;
+  MessagesView(User user, Chat toView) {
+    this.user = user;
+    this.toView = toView;
   }
 }

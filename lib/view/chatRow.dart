@@ -19,33 +19,18 @@ class ChatRow extends ListTile {
     return InkWell(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MessagesView("Иван Петров"))
+            MaterialPageRoute(builder: (context) => MessagesView(user, toRow))///!!!!
         );
       },
       child: Container(
           child: Row(
             children: [
-              Stack(
-                alignment: AlignmentDirectional.center,
-                children: [
-                  Container(
-                      margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                      width: 63,
-                      height: 63,
-                      decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(30),
-                      )
-                  ),
-
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
-                    ),
-                  ),
-                ],
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
+                ),
               ),
 
               Expanded(
@@ -84,14 +69,14 @@ class ChatRow extends ListTile {
                             ),
                           ),
                         ),
-                        Container(
+                        Flexible(child: Container(
                           //width: 100,
                           child: Text(toRow.messageList.last.messageText,
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                             softWrap: true,
                           ),
-                        ),
+                        ),),
 
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 6),
