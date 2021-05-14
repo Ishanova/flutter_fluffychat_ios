@@ -25,12 +25,30 @@ class ChatRow extends ListTile {
       child: Container(
           child: Row(
             children: [
-              Container(
-                margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
-                ),
+              Stack(
+                alignment: Alignment.bottomRight,
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(30),
+                      child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
+                    ),
+                  ),
+
+                  Visibility(
+                      visible:   (user.onlineStatus.isOnline && toRow.chatName == "") ? true : false,
+                      child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 18, horizontal: 9),
+                    width: 10,
+                    height: 10,
+                    decoration: BoxDecoration(
+                      color: Colors.green,
+                      shape: BoxShape.circle,
+                    ),
+                  )
+                  )
+                ],
               ),
 
               Expanded(
@@ -70,11 +88,10 @@ class ChatRow extends ListTile {
                           ),
                         ),
                         Flexible(child: Container(
-                          //width: 100,
                           child: Text(toRow.messageList.last.messageText,
-                            overflow: TextOverflow.ellipsis,
+                            overflow: TextOverflow.clip,
                             maxLines: 1,
-                            softWrap: true,
+                            softWrap: false,
                           ),
                         ),),
 
