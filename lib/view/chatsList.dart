@@ -1,38 +1,75 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_fluffychat_ios/model/chat.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_fluffychat_ios/models/chat.dart';
+import 'package:flutter_fluffychat_ios/models/user.dart';
+import 'package:flutter_fluffychat_ios/models/message.dart';
+import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
 import 'chatRow.dart';
 
 List chats = [
-  Chat("image", "Alexey Akulovich", "Lorem ipsum dolor sit amet", "6:34", false, true, true, true, true, 112),
-  Chat("image", "Ilya Scherbak", "Lorem ipsum dolor sit amet", "6:34", true, false, true, false, false, 0),
-  Chat("image", "Vyacheslav Flokk", "Lorem ipsum dolor sit amet", "6:34", false, false, false, true, false, 5),
-  Chat("image", "Vyacheslav Flokk", "Lorem ipsum dolor sit amet", "6:34", false, true, false, false, false, 5)
+  Chat("Важная беседа",
+      {
+        User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {}),
+        User("Lev Franc", "image", OnlineStatus(true, "10 march 2021", "10:19"), {"Важная беседа"}),
+        User("Polya Franc", "image", OnlineStatus(false, "10 march 2021", "10:19"), {"Беседа"})
+      },
+      [
+        Message("Иван Петров", "14 may 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
+        Message("Polya Franc", "14 may 2021", "00:19", "Hello!", {"Иван Петров", "Polya Franc"}),
+        Message("Иван Петров", "14 may 2021", "00:29", "Где Лев?", {"Иван Петров", "Polya Franc"})
+      ],
+      true),
+
+  Chat("tanya pyshka",
+      {
+        User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {}),
+        User("Polya Franc", "image", OnlineStatus(false, "10 march 2021", "10:19"), {"Беседа"})
+      },
+      [
+        Message("Иван Петров", "14 may 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
+        Message("Polya Franc", "14 may 2021", "00:19", "Hello!", {"Polya Franc"}),
+
+      ],
+      true),
+
+  Chat("",
+      {
+        User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {}),
+        User("Lev Franc", "image", OnlineStatus(true, "10 march 2021", "10:19"), {"Важная беседа"}),
+      },
+      [
+        Message("Иван Петров", "14 may 2021", "00:09", "мяу", {"Иван Петров", "Lev Franc"}),
+        Message("Lev Franc", "14 may 2021", "00:19", "-_-", {"Иван Петров", "Lev Franc"}),
+        Message("Иван Петров", "14 may 2021", "00:29", "а что ты хотел от интеллектуала?О.о", {"Иван Петров", "Lev Franc"})
+      ],
+      false),
 ];
 
 class ChatsList extends StatelessWidget {
   String tabName;
+  User user = User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {});
 
   Widget build(BuildContext context) {
-    final unreadChats = chats.where((element) => element.isRead == false);
-    final privateChats = chats;
+    final unreadChats = chats.where((element) => element.messageList.last.readList.contains(user.userID) == false);
+    final privateChats = chats.where((element) => element.isStudy == false);
     final studyChats = chats.where((element) => element.isStudy == true);
 
     if (tabName == "private") {
       return ListView(
           children: privateChats.map((chat)  {
-            return new ChatRow(chat.name, chat.message, chat.date, chat.unReadCount, chat.isRead, chat.isMute, chat.isFromMe, chat.isPrivate);
+            return new ChatRow(chat, user);
           }).toList()
       );
     } else if (tabName == "unread") {
       return ListView(
           children: unreadChats.map((chat)  {
-            return new ChatRow(chat.name, chat.message, chat.date, chat.unReadCount, chat.isRead, chat.isMute, chat.isFromMe, chat.isPrivate);
+            return new ChatRow(chat, user);
           }).toList()
       );
     } else if (tabName == "study") {
       return ListView(
           children: studyChats.map((chat)  {
-            return new ChatRow(chat.name, chat.message, chat.date, chat.unReadCount, chat.isRead, chat.isMute, chat.isFromMe, chat.isPrivate);
+            return new ChatRow(chat, user);
           }).toList()
       );
     }
@@ -41,4 +78,6 @@ class ChatsList extends StatelessWidget {
   ChatsList(String tabName) {
     this.tabName = tabName;
   }
+
+
 }

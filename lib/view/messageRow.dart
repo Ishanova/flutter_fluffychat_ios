@@ -1,16 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_fluffychat_ios/models/message.dart';
+import 'package:flutter_fluffychat_ios/models/user.dart';
+
 
 class MessageRow extends ListTile {
-  String message,date;
-  bool isFromMe;
+ Message message;
+ User user;
+
   Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
   Color backgroundColor = const Color.fromARGB(25, 67, 66, 68);
 
   @override
   Widget build(BuildContext context) {
 
-    if (isFromMe) {
+    if (user.userID == message.senderID) {
         return
            Column(
              mainAxisAlignment: MainAxisAlignment.end,
@@ -26,7 +30,7 @@ class MessageRow extends ListTile {
                  width: 300,
                  height: 50,
                  child: Text(
-                     message,
+                     message.messageText,
                    style: TextStyle(
                      fontSize: 14,
                      color: Colors.white,
@@ -41,14 +45,13 @@ class MessageRow extends ListTile {
           alignment: Alignment.centerLeft,
           color: backgroundColor,
           height: 30,
-          child: Text(message),
+          child: Text(message.messageText),
         );
     }
   }
 
-  MessageRow(String message, date, bool isFromMe) {
+  MessageRow(Message message, User user) {
     this.message = message;
-    this.date = date;
-    this.isFromMe = isFromMe;
+    this.user = user;
   }
 }
