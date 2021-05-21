@@ -15,6 +15,12 @@ class User {
     this.onlineStatus = onlineStatus;
     this.mutedChatsName = mutedChatsName;
   }
+  User.defArgs(){
+    this.userID = userID;
+    this.image = image;
+    this.onlineStatus = onlineStatus;
+    this.mutedChatsName = mutedChatsName;
+  }
 
   bool isMute(String toCompare){
     return mutedChatsName.contains(toCompare);

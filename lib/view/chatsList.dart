@@ -9,45 +9,45 @@ import 'chatRow.dart';
 List chats = [
   Chat("Важная беседа",
       {
-        User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {}),
-        User("Lev Franc", "image", OnlineStatus(true, "10 march 2021", "10:19"), {"Важная беседа"}),
-        User("Polya Franc", "image", OnlineStatus(false, "10 march 2021", "10:19"), {"Беседа"})
+        User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {}),
+        User("Lev Franc", "image", OnlineStatus(true, "10 марта 2021", "10:19"), {"Важная беседа"}),
+        User("Polya Franc", "image", OnlineStatus(false, "10 марта 2021", "10:19"), {"Беседа"})
       },
       [
-        Message("Иван Петров", "14 may 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
-        Message("Polya Franc", "14 may 2021", "00:19", "Hello!", {"Иван Петров", "Polya Franc"}),
-        Message("Иван Петров", "14 may 2021", "00:29", "Где Лев?", {"Иван Петров", "Polya Franc"})
+        Message("Иван Петров", "14 мая 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
+        Message("Polya Franc", "14 мая 2021", "00:19", "Hello!", {"Иван Петров", "Polya Franc"}),
+        Message("Иван Петров", "14 мая 2021", "00:29", "Где Лев?", {"Иван Петров", "Polya Franc"})
       ],
       true),
 
   Chat("tanya pyshka",
       {
-        User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {}),
-        User("Polya Franc", "image", OnlineStatus(false, "10 march 2021", "10:19"), {"Беседа"})
+        User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {}),
+        User("Polya Franc", "image", OnlineStatus(false, "10 марта 2021", "10:19"), {"Беседа"})
       },
       [
-        Message("Иван Петров", "14 may 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
-        Message("Polya Franc", "14 may 2021", "00:19", "Hello!", {"Polya Franc"}),
+        Message("Иван Петров", "14 мая 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
+        Message("Polya Franc", "14 мая 2021", "00:19", "Hello!", {"Polya Franc"}),
 
       ],
       true),
 
   Chat("",
       {
-        User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {}),
-        User("Lev Franc", "image", OnlineStatus(true, "10 march 2021", "10:19"), {"Важная беседа"}),
+        User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {}),
+        User("Lev Franc", "image", OnlineStatus(true, "10 марта 2021", "10:19"), {"Важная беседа"}),
       },
       [
-        Message("Иван Петров", "14 may 2021", "00:09", "мяу", {"Иван Петров", "Lev Franc"}),
-        Message("Lev Franc", "14 may 2021", "00:19", "-_-", {"Иван Петров", "Lev Franc"}),
-        Message("Иван Петров", "14 may 2021", "00:29", "а что ты хотел от интеллектуала?О.о", {"Иван Петров", "Lev Franc"})
+        Message("Иван Петров", "14 мая 2021", "00:09", "мяу", {"Иван Петров", "Lev Franc"}),
+        Message("Lev Franc", "14 мая 2021", "00:19", "-_-", {"Иван Петров", "Lev Franc"}),
+        Message("Иван Петров", "14 мая 2021", "00:29", "а что ты хотел от интеллектуала?О.о", {"Иван Петров", "Lev Franc"})
       ],
       false),
 ];
 
 class ChatsList extends StatelessWidget {
   String tabName;
-  User user = User("Иван Петров", "image", OnlineStatus(true, "14 may 2021", "00:09"), {});
+  User user = User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {});
 
   Widget build(BuildContext context) {
     final unreadChats = chats.where((element) => element.messageList.last.readList.contains(user.userID) == false);
