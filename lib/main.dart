@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/chatsList.dart';
-import 'package:flutter_fluffychat_ios/models/chat.dart';
+//import 'package:flutter_fluffychat_ios/models/chat.dart';
 
 void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
+  final contrastColor = const Color.fromARGB(100, 0, 145, 255);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -21,22 +22,41 @@ class TestFlutter extends StatelessWidget {
                 flexibleSpace: Stack(
                   children: [
                     Container(
-                      margin: EdgeInsets.fromLTRB(25, 22, 0, 0),
-                      child:  Text("Chat",
-                        style: new TextStyle(
-                            fontSize: 45,
-                            fontWeight: FontWeight.w700,
-                            color: Colors.deepPurpleAccent[100]
-                        ),
-                      ),
+                      margin: EdgeInsets.fromLTRB(45, 15, 0, 0),
+                      child:
+                      Stack(
+                        children: <Widget>[
+                          // Stroked text as border.
+                          Text(
+                            'CHAT',
+                            style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w500,
+                              foreground: Paint()
+                                ..style = PaintingStyle.stroke
+                                ..strokeWidth = 3
+                                ..color = contrastColor,
+                            ),
+                          ),
+                          // Solid text as fill.
+                          Text(
+                            'CHAT',
+                            style: TextStyle(
+                              fontSize: 50,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      )
                     ),
 
                     Container(
                       margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
-                      child:  Text("Chat",
+                      child:  Text("Чат",
                         style: new TextStyle(
                             fontSize: 34,
-                            fontWeight: FontWeight.normal,
+                            fontWeight: FontWeight.w800,
                             color: Colors.black
                         ),
                       ),
