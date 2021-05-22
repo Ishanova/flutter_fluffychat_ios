@@ -35,6 +35,16 @@ class Chat {
     return "default name";
   }
 
+  User companionObj(String userID){
+    for(int i = 0; i < memberList.length; i++){
+      if(memberList.toList()[i].userID == userID){
+        continue;
+      }
+      return memberList.toList()[i];
+    }
+    return User.defArgs();
+  }
+
   int unReadCount (String userID) {
     int count = 0;
     for (int i=messageList.length-1; i!=0; i--) {

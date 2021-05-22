@@ -64,12 +64,12 @@ class ChatRow extends ListTile {
                                   fontWeight: FontWeight.bold
                               ),),
                               Visibility(
-                                visible: this.isMute(user) ? true : false,
+                                visible: user.isMute(toRow.chatName),
                                 child: Container(
                                   margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
                                   child: Icon(
                                     Icons.volume_off,
-                                    size: 18,
+                                    size: 17,
                                     color: backgroundColor,
                                   ),
                                 ),
@@ -111,7 +111,7 @@ class ChatRow extends ListTile {
 
               Expanded(
                 child: Visibility(
-                  visible: toRow.messageList.last.isRead(user.userID) ? false : true,
+                  visible: !toRow.messageList.last.isRead(user.userID),
                   child: Align(
                     child: Container(
                         margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
