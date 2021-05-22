@@ -124,6 +124,14 @@ class ChatRow extends ListTile {
                           ),
                         ),
                         decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: user.mutedChatsName.contains(toRow.chatName) ? backgroundColor.withOpacity(0.2) : contrastColor.withOpacity(0.2),
+                              spreadRadius: 3,
+                              blurRadius: 4,
+                              //offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
                           color: user.mutedChatsName.contains(toRow.chatName) ? backgroundColor : contrastColor,
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30),

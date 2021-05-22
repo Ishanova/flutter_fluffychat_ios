@@ -65,16 +65,19 @@ class TestFlutter extends StatelessWidget {
                   ),
                   bottom:
                   TabBar(
-                    //isScrollable: true,
+                    isScrollable: true,
                     indicatorColor: Colors.transparent,
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
                     tabs: [
-                      Tab(text: "PRIVATE"),
-                      Tab(text: "UNREAD"),
-                      Tab(text: "STUDY")
+                      Tab(text: "ЛИЧНЫЕ"),
+                      Tab(text: "НЕПРОЧИТАННЫЕ"),
+                      Tab(text: "УЧЁБА")
                     ],
-                    labelStyle: TextStyle(fontSize: 20),
+                    labelStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight:  FontWeight.w500,
+                    ),
                   ),
                   backgroundColor: Colors.white,
                 ),
