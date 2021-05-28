@@ -2,13 +2,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/chatsList.dart';
 //import 'package:flutter_fluffychat_ios/models/chat.dart';
-
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
   final contrastColor = const Color.fromARGB(100, 0, 145, 255);
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         home: DefaultTabController(
