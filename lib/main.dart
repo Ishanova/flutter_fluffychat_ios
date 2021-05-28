@@ -9,6 +9,7 @@ class TestFlutter extends StatelessWidget {
   final contrastColor = const Color.fromARGB(100, 0, 145, 255);
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     return MaterialApp(
       debugShowCheckedModeBanner: false,
