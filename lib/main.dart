@@ -1,12 +1,17 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/chatsList.dart';
-//import 'package:flutter_fluffychat_ios/models/chat.dart';
+import 'package:flutter_fluffychat_ios/widgets/tab.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
-  final contrastColor = const Color.fromARGB(100, 0, 145, 255);
+  final contrastColor = const Color.fromARGB(255, 0, 145, 255);
+  final chatColor = const Color.fromARGB(56, 45, 47, 182);
+  var listFolders = [
+    {"name": "Личные", "status": true}, {"name": "Непрочитанные", "status": false},
+    {"name": "Учёба", "status": true}
+  ];
   @override
   Widget build(BuildContext context) {
     FlutterStatusbarcolor.setStatusBarColor(Colors.white);
@@ -37,7 +42,7 @@ class TestFlutter extends StatelessWidget {
                                 foreground: Paint()
                                   ..style = PaintingStyle.stroke
                                   ..strokeWidth = 3
-                                  ..color = contrastColor,
+                                  ..color = chatColor,
                               ),
                             ),
                             // Solid text as fill.
@@ -68,14 +73,14 @@ class TestFlutter extends StatelessWidget {
                   bottom:
                   TabBar(
                     isScrollable: true,
-                    indicatorColor: Colors.transparent,
+                    indicatorColor: contrastColor,
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
-                    tabs: [
-                      Tab(text: "ЛИЧНЫЕ"),
-                      Tab(text: "НЕПРОЧИТАННЫЕ"),
-                      Tab(text: "УЧЁБА")
-                    ],
+                    tabs: listFolders.map((element) {
+                      return new Tab(
+                        child: TabModel(element["name"], element["status"]),
+                      );
+                    }).toList(),
                     labelStyle: TextStyle(
                       fontSize: 20,
                       fontWeight:  FontWeight.w500,

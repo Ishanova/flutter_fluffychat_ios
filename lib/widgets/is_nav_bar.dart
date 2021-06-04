@@ -10,7 +10,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:itmo_students_app/ui/lib/itmostudents.dart';
+//import 'package:itmo_students_app/ui/lib/itmostudents.dart';
 
 /// Standard iOS navigation bar height without the status bar.
 ///
@@ -33,6 +33,8 @@ const double _kNavBarBackButtonTapWidth = 50.0;
 const Duration _kNavBarTitleFadeDuration = Duration(milliseconds: 200);
 
 const Color _kDefaultNavBarBorderColor = Color(0x4D000000);
+
+const Color testColor = Color.fromARGB(125, 67, 66, 68);
 
 const Border _kDefaultNavBarBorder = Border(
   bottom: BorderSide(
@@ -126,10 +128,11 @@ Widget _wrapActiveColor(Color color, BuildContext context, Widget child) {
     return child;
   }
 
-  return ISTheme(
-    data: AppThemeSwitcherWidget.of(context).themeData.copyWith(primaryColor: color),
-    child: child,
-  );
+  return child;
+  //return ISTheme(
+   // data: testColor,
+    //child: child,
+
 }
 
 // Whether the current route supports nav bar hero transitions from or to.
@@ -383,7 +386,7 @@ class ISNavigationBar extends StatefulWidget implements ObstructingPreferredSize
   @override
   bool shouldFullyObstruct(BuildContext context) {
     final Color backgroundColor =
-        CupertinoDynamicColor.resolve(this.backgroundColor, context) ?? AppThemeSwitcherWidget.of(context).themeData.barBackgroundColor;
+        CupertinoDynamicColor.resolve(this.backgroundColor, context) ?? testColor;
     return false; //backgroundColor.alpha == 0xFF;
   }
 
@@ -413,7 +416,7 @@ class _ISNavigationBarState extends State<ISNavigationBar> {
   @override
   Widget build(BuildContext context) {
     final Color backgroundColor =
-        CupertinoDynamicColor.resolve(widget.backgroundColor, context) ?? AppThemeSwitcherWidget.of(context).themeData.barBackgroundColor;
+        CupertinoDynamicColor.resolve(widget.backgroundColor, context) ?? testColor;
 
     final _NavigationBarStaticComponents components = _NavigationBarStaticComponents(
       keys: keys,
@@ -436,12 +439,15 @@ class _ISNavigationBarState extends State<ISNavigationBar> {
       backgroundColor: backgroundColor,
       brightness: widget.brightness,
       child: DefaultTextStyle(
-        style: AppThemeSwitcherWidget.of(context).themeData.textTheme.textStyle,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight:  FontWeight.w500,
+        ),
         child: _PersistentNavigationBar(
             components: components,
             padding: widget.padding,
-            actionColor: widget.actionsForegroundColor ?? AppThemeSwitcherWidget.of(context).themeData.primaryColor),
-      ),
+            actionColor: widget.actionsForegroundColor ?? testColor,
+      ),),
     );
 
     final Color actionsForegroundColor = CupertinoDynamicColor.resolve(
@@ -469,8 +475,14 @@ class _ISNavigationBarState extends State<ISNavigationBar> {
             child: _TransitionableNavigationBar(
               componentsKeys: keys,
               backgroundColor: backgroundColor,
-              backButtonTextStyle: AppThemeSwitcherWidget.of(context).themeData.textTheme.navActionTextStyle.copyWith(color: actionsForegroundColor),
-              titleTextStyle: AppThemeSwitcherWidget.of(context).themeData.textTheme.navTitleTextStyle,
+              backButtonTextStyle: TextStyle(
+                fontSize: 20,
+                fontWeight:  FontWeight.w500,
+              ),
+              titleTextStyle: TextStyle(
+                fontSize: 20,
+                fontWeight:  FontWeight.w500,
+              ),
               largeTitleTextStyle: null,
               border: widget.border,
               hasUserMiddle: widget.middle != null,
@@ -678,7 +690,7 @@ class _ISSliverNavigationBarState extends State<ISSliverNavigationBar> {
 
   @override
   Widget build(BuildContext context) {
-    final Color actionsForegroundColor = widget.actionsForegroundColor ?? AppThemeSwitcherWidget.of(context).themeData.primaryColor;
+    final Color actionsForegroundColor = widget.actionsForegroundColor ?? testColor;
 
     final _NavigationBarStaticComponents components = _NavigationBarStaticComponents(
       keys: keys,
@@ -708,7 +720,7 @@ class _ISSliverNavigationBarState extends State<ISSliverNavigationBar> {
               components: components,
               userMiddle: widget.middle,
               backgroundColor:
-                  CupertinoDynamicColor.resolve(widget.backgroundColor, context) ?? AppThemeSwitcherWidget.of(context).themeData.barBackgroundColor,
+                  CupertinoDynamicColor.resolve(widget.backgroundColor, context) ?? testColor,
               brightness: widget.brightness,
               border: widget.border,
               padding: widget.padding,
@@ -780,7 +792,10 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
     );
     final _defaultStrokeColor = Color.fromRGBO(45, 47, 182, 0.25);
     final Widget navBar = DefaultTextStyle(
-      style: AppThemeSwitcherWidget.of(context).themeData.textTheme.textStyle,
+      style: TextStyle(
+        fontSize: 20,
+        fontWeight:  FontWeight.w500,
+      ),
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
@@ -816,13 +831,10 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
                           right: 0.0,
                           child: DefaultTextStyle(
                               child: components.strokeTitle,
-                              style: AppThemeSwitcherWidget.of(context).themeData.textTheme.largeTitleBold.copyWith(
-                                    fontSize: 56,
-                                    foreground: Paint()
-                                      ..style = PaintingStyle.stroke
-                                      ..strokeWidth = 1
-                                      ..color = strokeColor ?? _defaultStrokeColor,
-                                  ))),
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight:  FontWeight.w500,
+                              ),)),
                       Padding(
                         padding: const EdgeInsetsDirectional.only(
                           start: _kNavBarEdgePadding,
@@ -835,8 +847,14 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
                             header: true,
                             child: DefaultTextStyle(
                               style: (foreground != null)
-                                  ? AppThemeSwitcherWidget.of(context).themeData.textTheme.largeTitleBold.copyWith(foreground: foreground)
-                                  : AppThemeSwitcherWidget.of(context).themeData.textTheme.largeTitleBold,
+                                  ? TextStyle(
+                                fontSize: 20,
+                                fontWeight:  FontWeight.w500,
+                              )
+                                  : TextStyle(
+                                fontSize: 20,
+                                fontWeight:  FontWeight.w500,
+                              ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               child: components.largeTitle,
@@ -870,9 +888,18 @@ class _LargeTitleNavigationBarSliverDelegate extends SliverPersistentHeaderDeleg
       child: _TransitionableNavigationBar(
         componentsKeys: keys,
         backgroundColor: CupertinoDynamicColor.resolve(backgroundColor, context),
-        backButtonTextStyle: AppThemeSwitcherWidget.of(context).themeData.textTheme.navActionTextStyle.copyWith(color: actionsForegroundColor),
-        titleTextStyle: AppThemeSwitcherWidget.of(context).themeData.textTheme.navTitleTextStyle,
-        largeTitleTextStyle: AppThemeSwitcherWidget.of(context).themeData.textTheme.navLargeTitleTextStyle,
+        backButtonTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight:  FontWeight.w500,
+        ),
+        titleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight:  FontWeight.w500,
+        ),
+        largeTitleTextStyle: TextStyle(
+          fontSize: 20,
+          fontWeight:  FontWeight.w500,
+        ),
         border: border,
         hasUserMiddle: userMiddle != null,
         largeExpanded: showLargeTitle,
@@ -925,7 +952,10 @@ class _PersistentNavigationBar extends StatelessWidget {
 
     if (middle != null) {
       middle = DefaultTextStyle(
-        style: AppThemeSwitcherWidget.of(context).themeData.textTheme.navTitleTextStyle,
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight:  FontWeight.w500,
+        ),
         child: Semantics(header: true, child: middle),
       );
       // When the middle's visibility can change on the fly like with large title
@@ -1344,7 +1374,10 @@ class CupertinoNavigationBarBackButton extends StatelessWidget {
       );
     }
 
-    TextStyle actionTextStyle = AppThemeSwitcherWidget.of(context).themeData.textTheme.navActionTextStyle;
+    TextStyle actionTextStyle = TextStyle(
+      fontSize: 20,
+      fontWeight:  FontWeight.w500,
+    );
     if (color != null) {
       actionTextStyle = actionTextStyle.copyWith(color: CupertinoDynamicColor.resolve(color, context));
     }
