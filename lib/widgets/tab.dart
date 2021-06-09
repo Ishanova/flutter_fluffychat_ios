@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class TabModel extends StatelessWidget{
   String tabName;
   bool isUnread;
+  int counter;
 
 
   @override
@@ -11,19 +13,21 @@ class TabModel extends StatelessWidget{
     return Row(
       children: [
         Text(tabName),
-
-        isUnread ? Indicator() : Text("")
+        isUnread ? Indicator(counter) : Text("")
       ],
     );
   }
-   TabModel (String tabName, bool isUnread) {
+   TabModel (String tabName, bool isUnread, int counter) {
      this.tabName = tabName;
      this.isUnread = isUnread;
+     this.counter = counter;
    }
 }
 
 class Indicator extends StatelessWidget{
   final contrastColor = const Color.fromARGB(255, 0, 145, 255);
+  int counter;
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +46,16 @@ class Indicator extends StatelessWidget{
             ),
           ],
         ),
+      child: Text("$counter",
+        textAlign: TextAlign.center,
+        style: new TextStyle(
+            fontSize: 14.0,
+            color: Colors.white
+        ),
+      ),
     );
+  }
+  Indicator (int counter) {
+    this.counter = counter;
   }
 }

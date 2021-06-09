@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/chatsList.dart';
 import 'package:flutter_fluffychat_ios/widgets/tab.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:flutter_fluffychat_ios/view/data.dart';
 void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
   final contrastColor = const Color.fromARGB(255, 0, 145, 255);
   final chatColor = const Color.fromARGB(56, 45, 47, 182);
+  int counter;
   var listFolders = [
     {"name": "Личные", "status": true}, {"name": "Непрочитанные", "status": false},
     {"name": "Учёба", "status": true}
@@ -22,7 +24,7 @@ class TestFlutter extends StatelessWidget {
           length: 3,
           child: Scaffold(
             appBar: PreferredSize(
-              preferredSize: Size.fromHeight(120),
+              preferredSize: Size.fromHeight(130),
               child: SafeArea(
                 child: AppBar(
                   elevation: 0.0,
@@ -74,12 +76,15 @@ class TestFlutter extends StatelessWidget {
                   TabBar(
                     isScrollable: true,
                     indicatorColor: contrastColor,
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                     labelColor: Colors.black,
                     unselectedLabelColor: Colors.grey,
                     tabs: listFolders.map((element) {
-                      return new Tab(
-                        child: TabModel(element["name"], element["status"]),
-                      );
+                      return SizedBox(
+                        height: 35,
+                          child: new Tab(
+                        child: TabModel(element["name"], element["status"], counter),
+                      ));
                     }).toList(),
                     labelStyle: TextStyle(
                       fontSize: 20,
@@ -97,7 +102,6 @@ class TestFlutter extends StatelessWidget {
                 ChatsList("unread"),
                 ChatsList("study"),
               ],
-
             ),
           ),
         )

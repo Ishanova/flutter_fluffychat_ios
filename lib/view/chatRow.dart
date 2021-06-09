@@ -97,7 +97,7 @@ class ChatRow extends ListTile {
 
                         Container(
                           margin: EdgeInsets.symmetric(horizontal: 6),
-                          child: Text(toRow.messageList.last.time,
+                          child: Text(" · ${toRow.messageList.last.time}",
                             style: TextStyle(
                               color: backgroundColor,
                             ),
