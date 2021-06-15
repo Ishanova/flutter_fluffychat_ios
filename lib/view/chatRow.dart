@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
+import 'package:flutter_fluffychat_ios/widgets/indicator.dart';
 import 'package:flutter_fluffychat_ios/models/message.dart';
 import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
 import 'package:flutter_fluffychat_ios/view/messagesView.dart';
@@ -113,7 +114,8 @@ class ChatRow extends ListTile {
                 child: Visibility(
                   visible: !toRow.messageList.last.isRead(user.userID),
                   child: Align(
-                    child: Container(
+                    child: Indicator(toRow.unReadCount(user.userID))
+                    /*Container(
                         margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
                         padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
                         child: Text("${toRow.unReadCount(user.userID)}",
@@ -136,7 +138,7 @@ class ChatRow extends ListTile {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.circular(30),
                         ),
-                    ),
+                    ),*/
                   ),
                 ),
                 flex: 1,

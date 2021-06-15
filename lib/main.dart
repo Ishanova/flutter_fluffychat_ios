@@ -9,7 +9,7 @@ void main() => runApp(TestFlutter());
 class TestFlutter extends StatelessWidget {
   final contrastColor = const Color.fromARGB(255, 0, 145, 255);
   final chatColor = const Color.fromARGB(56, 45, 47, 182);
-  int counter;
+  //int counter;
   var listFolders = [
     {"name": "Личные", "status": true}, {"name": "Непрочитанные", "status": false},
     {"name": "Учёба", "status": true}
@@ -83,7 +83,7 @@ class TestFlutter extends StatelessWidget {
                       return SizedBox(
                         height: 35,
                           child: new Tab(
-                        child: TabModel(element["name"], element["status"], counter),
+                        child: TabModel(element["name"], element["status"], countUnread(), tagged()),
                       ));
                     }).toList(),
                     labelStyle: TextStyle(
@@ -107,4 +107,12 @@ class TestFlutter extends StatelessWidget {
         )
     );
   }
+}
+
+
+int countUnread(){
+ return 1;
+}
+bool tagged(){
+  return true;
 }
