@@ -26,6 +26,7 @@ List chats = [
       [
         Message("Иван Петров", "14 мая 2021", "00:09", "Hello", {"Иван Петров", "Polya Franc"}),
         Message("Polya Franc", "14 мая 2021", "00:19", "Hello!", {"Polya Franc"}),
+        Message("Polya Franc", "14 мая 2021", "00:20", "вы где?", {"Polya Franc"}),
       ],
       true),
 

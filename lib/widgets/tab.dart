@@ -15,7 +15,8 @@ class TabModel extends StatelessWidget{
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Text(tabName),
+        Text(tabName,
+            style: TextStyle(fontSize: 20, fontWeight:  FontWeight.w500)),
         isUnread ? Indicator(counter) : Text(""),
         isUnread ? SmallIndicator() : Text(""),
       ],

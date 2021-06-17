@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/chatsList.dart';
 import 'package:flutter_fluffychat_ios/widgets/tab.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:flutter_fluffychat_ios/view/data.dart';
+import 'package:flutter_fluffychat_ios/view/mock_data.dart';
 void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
@@ -86,10 +86,6 @@ class TestFlutter extends StatelessWidget {
                         child: TabModel(element["name"], element["status"], countUnread(), tagged()),
                       ));
                     }).toList(),
-                    labelStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight:  FontWeight.w500,
-                    ),
                   ),
                   backgroundColor: Colors.white,
                 ),
@@ -101,6 +97,7 @@ class TestFlutter extends StatelessWidget {
                 ChatsList("private"),
                 ChatsList("unread"),
                 ChatsList("study"),
+                // for folder in folders: folder["name"] //from backend
               ],
             ),
           ),

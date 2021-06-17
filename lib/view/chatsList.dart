@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
-import 'package:flutter_fluffychat_ios/view/data.dart';
+import 'package:flutter_fluffychat_ios/view/mock_data.dart';
 import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
 import 'chatRow.dart';
 
@@ -39,6 +39,4 @@ class ChatsList extends StatelessWidget {
   ChatsList(String tabName) {
     this.tabName = tabName;
   }
-
-
 }
