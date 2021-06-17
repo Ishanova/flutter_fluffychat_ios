@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fluffychat_ios/view/chatsList.dart';
-import 'package:flutter_fluffychat_ios/widgets/tab.dart';
+import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
+import 'package:flutter_fluffychat_ios/view/chat/chatTab.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:flutter_fluffychat_ios/view/mock_data.dart';
+
 void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
@@ -83,7 +83,7 @@ class TestFlutter extends StatelessWidget {
                       return SizedBox(
                         height: 35,
                           child: new Tab(
-                        child: TabModel(element["name"], element["status"], countUnread(), tagged()),
+                        child: chatTab(element["name"], element["status"], countUnread(), tagged()),
                       ));
                     }).toList(),
                   ),

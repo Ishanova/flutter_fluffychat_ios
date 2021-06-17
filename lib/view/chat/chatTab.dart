@@ -1,15 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_fluffychat_ios/widgets/indicator.dart';
-import 'package:flutter_fluffychat_ios/widgets/small_indicator.dart';
+
+import 'package:flutter_fluffychat_ios/helper/indicator.dart';
 import 'package:flutter/rendering.dart';
 
-class TabModel extends StatelessWidget{
+class chatTab extends StatelessWidget{
   String tabName;
-  bool isUnread;
-  bool isTagged;
+  bool isUnread, isTagged;
   int counter;
-
 
   @override
   Widget build(BuildContext context) {
@@ -17,12 +15,12 @@ class TabModel extends StatelessWidget{
       children: [
         Text(tabName,
             style: TextStyle(fontSize: 20, fontWeight:  FontWeight.w500)),
-        isUnread ? Indicator(counter) : Text(""),
-        isUnread ? SmallIndicator() : Text(""),
+        isUnread ? Indicator(1, counter) : Text(""),
+        isUnread ? Indicator(0) : Text(""),
       ],
     );
   }
-   TabModel (String tabName, bool isUnread, int counter, bool isTagged) {
+   chatTab (String tabName, bool isUnread, int counter, bool isTagged) {
      this.tabName = tabName;
      this.isUnread = isUnread;
      this.isTagged = isTagged;

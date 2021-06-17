@@ -45,7 +45,7 @@ class Chat {
     return User.defArgs();
   }
 
-  int unReadCount (String userID) {
+  int unreadCount (String userID) {
     int count = 0;
     for (int i=messageList.length-1; i!=0; i--) {
       if (messageList[i].readList.contains(userID)) {break;}

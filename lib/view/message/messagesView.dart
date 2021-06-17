@@ -2,8 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
-import 'package:flutter_fluffychat_ios/view/messageRow.dart';
-import 'package:flutter_fluffychat_ios/models/chat.dart';
+import 'package:flutter_fluffychat_ios/view/message/messageRow.dart';
 
 class MessagesView extends StatelessWidget {
   User user;
