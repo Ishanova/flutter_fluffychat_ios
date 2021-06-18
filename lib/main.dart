@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatTab.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
@@ -8,6 +8,7 @@ void main() => runApp(TestFlutter());
 
 class TestFlutter extends StatelessWidget {
   final contrastColor = const Color.fromARGB(255, 0, 145, 255);
+  final brightColor = const Color.fromARGB(255, 255, 255, 255);
   final chatColor = const Color.fromARGB(56, 45, 47, 182);
   //int counter;
   var listFolders = [
@@ -16,12 +17,13 @@ class TestFlutter extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
+    FlutterStatusbarcolor.setStatusBarColor(brightColor);
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
-    return MaterialApp(
+    return CupertinoApp(
       debugShowCheckedModeBanner: false,
-        home: DefaultTabController(
-          length: 3,
+        home: CupertinoTabScaffold(
+
+         /* length: 3,
           child: Scaffold(
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(130),
@@ -100,7 +102,7 @@ class TestFlutter extends StatelessWidget {
                 // for folder in folders: folder["name"] //from backend
               ],
             ),
-          ),
+          ),*/
         )
     );
   }

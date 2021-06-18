@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+//import 'package:flutter/material.dart';
 
 class Indicator extends StatelessWidget {
   final color = const Color.fromARGB(255, 0, 145, 255);
-
-  bool isBig;
+  final counterColor = const Color.fromARGB(255, 255, 255, 255);
   int counter;
   double width, height, blur, spread, opacity;
 
@@ -12,34 +11,38 @@ class Indicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         constraints: BoxConstraints(minHeight: height, minWidth: width),
-
+        width: (counter != null) ? 6 : height,
+        height: (counter != null) ? 6 : width,
         margin: EdgeInsets.fromLTRB(5, 3, 0, 0),
         padding: EdgeInsets.symmetric(horizontal: 3),
-
         decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(opacity),
-                spreadRadius: spread,
-                blurRadius: blur,
-              )
-            ],
+          color: color,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: color.withOpacity(opacity),
+              spreadRadius: spread,
+              blurRadius: blur,
+            )
+          ],
         ),
-        child: Text("$counter",
-            textAlign: TextAlign.center,
-            style: new TextStyle(
-              fontSize: 11,
-              color: Colors.white
-            ),
-        )
-    );
+        child: (counter == null)
+            ? Text(
+                "",
+              )
+            : Text(
+                "$counter",
+                textAlign: TextAlign.center,
+                style: new TextStyle(
+                  fontSize: 11,
+                  color: counterColor,
+                ),
+              ));
   }
 
   Indicator(int size, [int counter]) {
     switch (size) {
-        //small size
+      //small size
       case 0:
         this.width = 6;
         this.height = 6;
@@ -48,7 +51,7 @@ class Indicator extends StatelessWidget {
         this.opacity = 0.2;
         break;
 
-        //medium size
+      //medium size
       case 1:
         this.width = 13;
         this.height = 13;
@@ -58,7 +61,7 @@ class Indicator extends StatelessWidget {
         this.counter = counter;
         break;
 
-        //large size
+      //large size
       case 2:
         this.width = 24;
         this.height = 24;

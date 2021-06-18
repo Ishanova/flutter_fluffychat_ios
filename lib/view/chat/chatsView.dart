@@ -15,7 +15,7 @@ class ChatsList extends StatelessWidget {
     final studyChats = chats.where((element) => element.isStudy == true);
 
     if (tabName == "private") {
-      return ListView(
+      return (
           children: privateChats.map((chat)  {
             return new ChatRow(chat, user);
           }).toList()

@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/message/messagesView.dart';
@@ -8,19 +7,20 @@ import 'package:flutter_fluffychat_ios/models/message.dart';
 import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
-class ChatRow extends ListTile {
+class ChatRow extends ScrollableState{
   Chat toRow;
   User user;
 
   Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
   Color backgroundColor = const Color.fromARGB(125, 67, 66, 68);
+  Color onlineColor = const Color.fromARGB(255, 34, 178, 23);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            MaterialPageRoute(builder: (context) => MessagesView(user, toRow))///!!!!
+            CupertinoPageRoute(builder: (context) => MessagesView(user, toRow))///!!!!
         );
       },
       child: Container(
@@ -44,7 +44,7 @@ class ChatRow extends ListTile {
                     width: 10,
                     height: 10,
                     decoration: BoxDecoration(
-                      color: Colors.green,
+                      color: onlineColor,
                       shape: BoxShape.circle,
                     ),
                   )
@@ -69,7 +69,7 @@ class ChatRow extends ListTile {
                                 child: Container(
                                   margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
                                   child: Icon(
-                                    Icons.volume_off,
+                                    CupertinoIcons.volume_off,
                                     size: 17,
                                     color: backgroundColor,
                                   ),
@@ -114,31 +114,7 @@ class ChatRow extends ListTile {
                 child: Visibility(
                   visible: !toRow.messageList.last.isRead(user.userID),
                   child: Align(
-                    child: Indicator(1, toRow.unreadCount(user.userID))
-                    /*Container(
-                        margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                        padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
-                        child: Text("${toRow.unReadCount(user.userID)}",
-                          textAlign: TextAlign.center,
-                          style: new TextStyle(
-                              fontSize: 14.0,
-                              color: Colors.white
-                          ),
-                        ),
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: user.mutedChatsName.contains(toRow.chatName) ? backgroundColor.withOpacity(0.2) : contrastColor.withOpacity(0.2),
-                              spreadRadius: 3,
-                              blurRadius: 4,
-                              //offset: Offset(0, 3), // changes position of shadow
-                            ),
-                          ],
-                          color: user.mutedChatsName.contains(toRow.chatName) ? backgroundColor : contrastColor,
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                    ),*/
+                    child: Indicator(2, toRow.unreadCount(user.userID))
                   ),
                 ),
                 flex: 1,
