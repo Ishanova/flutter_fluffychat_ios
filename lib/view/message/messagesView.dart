@@ -2,11 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/message/messageRow.dart';
+import 'package:flutter_fluffychat_ios/helper/colors.dart';
 
 class MessagesView extends StatelessWidget {
   User user;
   Chat toView;
-  Color textColor = const Color.fromARGB(200, 0, 0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class MessagesView extends StatelessWidget {
                       : "был в сети ${toView.companionObj(user.userID).onlineStatus.lastDate} в ${toView.companionObj(user.userID).onlineStatus.lastTime}")
                   : "${toView.memberList.length} участника",
               style: TextStyle(
-                color: textColor,
+                color: black,
                 fontSize: 12,
               ),
             )

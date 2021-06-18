@@ -5,15 +5,13 @@ import 'package:flutter_fluffychat_ios/view/message/messagesView.dart';
 import 'package:flutter_fluffychat_ios/helper//indicator.dart';
 import 'package:flutter_fluffychat_ios/models/message.dart';
 import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
+import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
-class ChatRow extends ScrollableState{
+class ChatRow extends Scrollable{
   Chat toRow;
   User user;
 
-  Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
-  Color backgroundColor = const Color.fromARGB(125, 67, 66, 68);
-  Color onlineColor = const Color.fromARGB(255, 34, 178, 23);
 
   @override
   Widget build(BuildContext context) {

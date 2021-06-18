@@ -1,9 +1,7 @@
 import 'package:flutter/cupertino.dart';
-//import 'package:flutter/material.dart';
+import 'package:flutter_fluffychat_ios/helper/colors.dart';
 
 class Indicator extends StatelessWidget {
-  final color = const Color.fromARGB(255, 0, 145, 255);
-  final counterColor = const Color.fromARGB(255, 255, 255, 255);
   int counter;
   double width, height, blur, spread, opacity;
 
@@ -16,11 +14,11 @@ class Indicator extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(5, 3, 0, 0),
         padding: EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
-          color: color,
+          color: contrastColor,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(opacity),
+              color: contrastColor.withOpacity(opacity),
               spreadRadius: spread,
               blurRadius: blur,
             )
@@ -35,7 +33,7 @@ class Indicator extends StatelessWidget {
                 textAlign: TextAlign.center,
                 style: new TextStyle(
                   fontSize: 11,
-                  color: counterColor,
+                  color: white,
                 ),
               ));
   }

@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/models/message.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
+import 'package:flutter_fluffychat_ios/helper/colors.dart';
 
 
 class MessageRow extends Scrollable{
  Message message;
  User user;
-
-  Color contrastColor = const Color.fromARGB(255, 0, 145, 255);
-  Color backgroundColor = const Color.fromARGB(25, 67, 66, 68);
- Color textColor = const Color.fromARGB(255, 0, 0, 0);
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +30,7 @@ class MessageRow extends Scrollable{
                      message.messageText,
                    style: TextStyle(
                      fontSize: 14,
-                     color: textColor,
+                     color: black,
                    ),
                  ),
                )
