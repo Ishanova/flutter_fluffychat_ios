@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-//import 'package:flutter/material.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/message/messageRow.dart';
@@ -46,9 +45,6 @@ class MessagesView extends StatelessWidget {
           children: toView.messageList.map((message) {
         return new MessageRow(message, user);
       }).toList()
-          //children: [
-          //  MessageRow("Lorem ipsum dolor sit Amet.", "6:45", true)
-          // ],
           )),
     );
   }

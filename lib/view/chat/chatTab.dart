@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-
 import 'package:flutter_fluffychat_ios/helper/indicator.dart';
 import 'package:flutter/rendering.dart';
 
