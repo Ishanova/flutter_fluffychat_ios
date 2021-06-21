@@ -5,19 +5,29 @@ class AppBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PreferredSize(
+    return CupertinoPageScaffold(
+        // navigation bar
+        navigationBar: CupertinoNavigationBar(
+        middle: Text('test'),
+    ),
+        child: Container(
+          width: 120,
+          height: 50,
+          color: black,
+    ),);
+    /*PreferredSize(
         preferredSize: Size.fromHeight(130),
         child: Text(
           'jhgu',
           style: TextStyle(color: white),
         ));
-    /*PreferredSize(
+    *//*PreferredSize(
           preferredSize: Size.fromHeight(130),
-          child: */ /* CupertinoSliverNavigationBar(
+          child: *//* *//* CupertinoSliverNavigationBar(
             largeTitle: Text("vze"),
               //centerTitle: false,
-            middle:*/
-    /*Stack (
+            middle:*//*
+    *//*Stack (
               children: [
                 Container(
                   margin: EdgeInsets.fromLTRB(45, 15, 0, 0),
@@ -57,9 +67,9 @@ class AppBarView extends StatelessWidget {
                 ),
               ],
             ),
-          ), */
+          ), *//*
     //  )
-    /*
+    *//*
                   bottom:
                   TabBar(
                     isScrollable: true,
@@ -88,7 +98,7 @@ class AppBarView extends StatelessWidget {
                 // for folder in folders: folder["name"] //from backend
               ],
             ),
-          ),*/
-    ;
+          ),*//*
+    ;*/
   }
 }

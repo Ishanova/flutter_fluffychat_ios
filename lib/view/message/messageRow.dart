@@ -21,7 +21,7 @@ class MessageRow extends Scrollable{
                  alignment: Alignment.center,
                  decoration: BoxDecoration(
                    borderRadius: BorderRadiusDirectional.all(Radius.circular(10)),
-                   color: contrastColor,
+                   color: blue,
                   // padding: EdgeInsets.all(7),
                  ),
                  width: 300,
@@ -40,7 +40,7 @@ class MessageRow extends Scrollable{
     } else {
         return Container(
           alignment: Alignment.centerLeft,
-          color: backgroundColor,
+          color: grey,
           height: 30,
           child: Text(message.messageText),
         );

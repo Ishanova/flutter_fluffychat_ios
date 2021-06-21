@@ -14,11 +14,11 @@ class Indicator extends StatelessWidget {
         margin: EdgeInsets.fromLTRB(5, 3, 0, 0),
         padding: EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
-          color: contrastColor,
+          color: blue,
           borderRadius: BorderRadius.circular(30),
           boxShadow: [
             BoxShadow(
-              color: contrastColor.withOpacity(opacity),
+              color: blue.withOpacity(opacity),
               spreadRadius: spread,
               blurRadius: blur,
             )

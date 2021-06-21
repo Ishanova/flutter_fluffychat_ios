@@ -42,7 +42,7 @@ class ChatRow extends Scrollable{
                     width: 10,
                     height: 10,
                     decoration: BoxDecoration(
-                      color: onlineColor,
+                      color: green,
                       shape: BoxShape.circle,
                     ),
                   )
@@ -69,7 +69,7 @@ class ChatRow extends Scrollable{
                                   child: Icon(
                                     CupertinoIcons.volume_off,
                                     size: 17,
-                                    color: backgroundColor,
+                                    color: grey,
                                   ),
                                 ),
                               )
@@ -82,7 +82,7 @@ class ChatRow extends Scrollable{
                           Text(
                             (isFromMe(user.userID, toRow.messageList.last.senderID) ? "Вы: " : (!toRow.isStudy ? "" : (NameView(toRow.messageList.last.senderID) + ": "))),
                             style: TextStyle (
-                                color: backgroundColor
+                                color: grey
                             ),
                           ),
                         ),
@@ -98,7 +98,7 @@ class ChatRow extends Scrollable{
                           margin: EdgeInsets.symmetric(horizontal: 6),
                           child: Text(" · ${toRow.messageList.last.time}",
                             style: TextStyle(
-                              color: backgroundColor,
+                              color: grey,
                             ),
                           ),
                         ),
