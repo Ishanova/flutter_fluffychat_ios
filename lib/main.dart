@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatTab.dart';
 import 'package:flutter_fluffychat_ios/helper/appBarView.dart';
@@ -17,6 +18,8 @@ class TestFlutter extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations(
+        [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     FlutterStatusbarcolor.setStatusBarColor(brightColor);
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     return CupertinoApp(

@@ -5,23 +5,28 @@ class AppBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
+    return CustomScrollView(
+      slivers: <Widget>[
+        const CupertinoSliverNavigationBar(
+          largeTitle: Text('Chat'),
+        ),
+        SliverSafeArea(
+          top: false,
+          minimum: const EdgeInsets.only(top: 8),
+        ),
+      ],
+    );
+    /*return CupertinoPageScaffold(
         // navigation bar
-        navigationBar: CupertinoNavigationBar(
-        middle: Text('test'),
-    ),
-        child: Container(
-          width: 120,
-          height: 50,
-          color: black,
-    ),);
+        child: CupertinoSliverNavigationBar(
+        largeTitle: Text("CHAT",
+          style: TextStyle(
+            color: black,
+          ),
+        ),
+      )
+    );*/
     /*PreferredSize(
-        preferredSize: Size.fromHeight(130),
-        child: Text(
-          'jhgu',
-          style: TextStyle(color: white),
-        ));
-    *//*PreferredSize(
           preferredSize: Size.fromHeight(130),
           child: *//* *//* CupertinoSliverNavigationBar(
             largeTitle: Text("vze"),
