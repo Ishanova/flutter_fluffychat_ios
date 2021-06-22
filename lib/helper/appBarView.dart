@@ -6,8 +6,10 @@ class AppBarView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
+
       slivers: <Widget>[
         CupertinoSliverNavigationBar(
+          backgroundColor: white,
           largeTitle: Stack (
             children: [
               Container(
