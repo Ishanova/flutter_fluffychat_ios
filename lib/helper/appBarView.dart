@@ -7,74 +7,57 @@ class AppBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomScrollView(
       slivers: <Widget>[
-        const CupertinoSliverNavigationBar(
-          largeTitle: Text('Chat'),
-        ),
-        SliverSafeArea(
-          top: false,
-          minimum: const EdgeInsets.only(top: 8),
-        ),
-      ],
-    );
-    /*return CupertinoPageScaffold(
-        // navigation bar
-        child: CupertinoSliverNavigationBar(
-        largeTitle: Text("CHAT",
-          style: TextStyle(
-            color: black,
+        CupertinoSliverNavigationBar(
+          largeTitle: Stack (
+            children: [
+              Container(
+                margin: EdgeInsets.fromLTRB(45, 15, 0, 0),
+                child: Stack(
+                  children: <Widget>[
+                    Text(
+                      'CHAT',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.w500,
+                        foreground: Paint()
+                          ..style = PaintingStyle.stroke
+                          ..strokeWidth = 3
+                          ..color = blue,
+                      ),
+                    ),
+                    Text(
+                      'CHAT',
+                      style: TextStyle(
+                        fontSize: 50,
+                        fontWeight: FontWeight.w500,
+                        color: white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
+                child:  Text("Чат",
+                  style: new TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.w800,
+                      color: black
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
+      ],
+      );
+   // );
+
+
+    /*
+          ),
       )
-    );*/
-    /*PreferredSize(
-          preferredSize: Size.fromHeight(130),
-          child: *//* *//* CupertinoSliverNavigationBar(
-            largeTitle: Text("vze"),
-              //centerTitle: false,
-            middle:*//*
-    *//*Stack (
-              children: [
-                Container(
-                  margin: EdgeInsets.fromLTRB(45, 15, 0, 0),
-                  child: Stack(
-                    children: <Widget>[
-                      Text(
-                        'CHAT',
-                        style: TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.w500,
-                          foreground: Paint()
-                            ..style = PaintingStyle.stroke
-                            ..strokeWidth = 3
-                            ..color = chatColor,
-                        ),
-                      ),
-                      Text(
-                        'CHAT',
-                        style: TextStyle(
-                          fontSize: 50,
-                          fontWeight: FontWeight.w500,
-                          color: brightColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
-                  child:  Text("Чат",
-                    style: new TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.w800,
-                        color: darkColor
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ), *//*
-    //  )
-    *//*
+
                   bottom:
                   TabBar(
                     isScrollable: true,
@@ -103,7 +86,7 @@ class AppBarView extends StatelessWidget {
                 // for folder in folders: folder["name"] //from backend
               ],
             ),
-          ),*//*
+          ),
     ;*/
   }
 }
