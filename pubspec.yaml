@@ -22,6 +22,7 @@ environment:
 
 dependencies:
   flutter_statusbarcolor: ^0.2.3
+  shared_preferences: any
   flutter:
     sdk: flutter
 
@@ -40,6 +41,7 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -48,6 +50,34 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
    - assets/ac.jpg
+fonts:
+  - family: SFProDisplay
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Display-Regular.otf
+  - family: SFProDisplaySemibold
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Display-Semibold.otf
+  - family: SFProDisplaySemiboldItalic
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Display-SemiboldItalic.otf
+  - family: SFProDisplayBold
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Display-Bold.otf
+
+  - family: SFProText
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Text-Regular.otf
+      - asset: fonts/SF_Pro/SF-Pro-Text-RegularItalic.otf
+        style: italic
+  - family: SFProTextMedium
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Text-Medium.otf
+  - family: SFProTextSemibold
+    fonts:
+      - asset: fonts/SF_Pro/SF-Pro-Text-Semibold.otf
+      - asset: fonts/SF_Pro/SF-Pro-Text-SemiboldItalic.otf
+        style: italic
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

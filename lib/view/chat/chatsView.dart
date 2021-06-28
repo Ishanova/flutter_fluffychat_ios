@@ -6,7 +6,7 @@ import 'chatRow.dart';
 
 class ChatsList extends StatelessWidget {
   String tabName;
-  User user = User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {"Все мы"});
+  User user = User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {"Все мы"}, {"study": ["1111", "2222"], "private": ["3333", "4444"], "unread": ["5555"]});
 
   Widget build(BuildContext context) {
     final unreadChats = chats.where((element) => element.messageList.last.readList.contains(user.userID) == false);

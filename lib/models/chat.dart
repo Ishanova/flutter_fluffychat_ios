@@ -5,13 +5,15 @@ class Chat {
   String chatName; //название чата
   Set<User> memberList; //список участников чата
   List<Message> messageList; //список сообщений в чате
-  bool isStudy; // учебное или неучебное
+  bool isStudy;// учебное или неучебное
+  String chatID;
 
-  Chat(String chatName, Set<User> memberList, List<Message> messageList, bool isStudy) {
+  Chat(String chatName, Set<User> memberList, List<Message> messageList, bool isStudy, String chatID) {
     this.chatName = chatName;
     this.memberList = memberList;
     this.messageList = messageList;
     this.isStudy = isStudy;
+    this.chatID = chatID;
   }
   Set<User> getMemberList(){
     return memberList;
