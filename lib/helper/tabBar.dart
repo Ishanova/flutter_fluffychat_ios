@@ -1,14 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatTab.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
+import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 
 class TabBar extends StatelessWidget {
-  final listFolders = [
-    {"name": "Личные", "status": true}, {"name": "Непрочитанные", "status": false},
-    {"name": "Учёба", "status": true}
-  ];
-
-
 
   @override
   Widget build(BuildContext context) {

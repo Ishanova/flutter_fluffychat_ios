@@ -1,11 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_fluffychat_ios/theme/theme.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatTab.dart';
 import 'package:flutter_fluffychat_ios/helper/appBarView.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-void main() => runApp(TestFlutter());// стоит переименовать тестфлаттер
+void main() => runApp(AppThemeSwitcherWidget(child: TestFlutter()));// стоит переименовать тестфлаттер
 
 class TestFlutter extends StatelessWidget {
   final contrastColor = const Color.fromARGB(255, 0, 145, 255);
