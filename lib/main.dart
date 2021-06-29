@@ -29,11 +29,3 @@ class TestFlutter extends StatelessWidget {
     );
   }
 }
-
-
-int countUnread(){
- return 1;
-}
-bool tagged(){
-  return true;
-}

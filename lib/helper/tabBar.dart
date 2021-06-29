@@ -13,8 +13,16 @@ class TabBar extends StatelessWidget {
       child: ListView(
         scrollDirection: Axis.horizontal,
         children: [
-          chatTab("    vze    ", false, 2, false),
-          chatTab("    gav    ", false, 2, true)
+          ChatTab("Все", true, 6, false),
+          ChatTab("Непрочитанные", true, 2, true),
+          ChatTab("Учёба", false, 2, true),
+          Container(
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              child: Icon(
+                  CupertinoIcons.slider_horizontal_3,
+                size: 22,
+              ),
+          ),
         ],
       ),
     );
