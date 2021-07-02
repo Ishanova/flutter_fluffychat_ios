@@ -80,7 +80,9 @@ class ChatRow extends Scrollable{
                         Container(
                           child:
                           Text(
-                            (isFromMe(user.userID, toRow.messageList.last.senderID) ? "Вы: " : (!toRow.isStudy ? "" : (NameView(toRow.messageList.last.senderID) + ": "))),
+                            (isFromMe(user.userID, toRow.messageList.last.senderID)
+                                ? "Вы: "
+                                : NameView(toRow.messageList.last.senderID) + ": "),
                             style: TextStyle (
                                 color: grey
                             ),
