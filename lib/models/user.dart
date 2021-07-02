@@ -1,16 +1,16 @@
-import 'chat.dart';
+import 'folder.dart';
 import 'onlineStatus.dart';
 
 class User {
   String userID, image; // имя и аватарка
   OnlineStatus onlineStatus;
   Set<String> mutedChatsName; //список заглушенных чатов
-  Map<String, List<String>> folders;
+  Set<Folder> folders;
 
   User(String userID, image,
       OnlineStatus onlineStatus,
       Set<String> mutedChatsName,
-      Map<String, List<String>> folders) {
+      Set<Folder> folders) {
     this.userID = userID;
     this.image = image;
     this.onlineStatus = onlineStatus;

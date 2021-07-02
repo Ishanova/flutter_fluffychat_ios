@@ -13,10 +13,7 @@ class TestFlutter extends StatelessWidget {
   final brightColor = const Color.fromARGB(255, 255, 255, 255);
   final chatColor = const Color.fromARGB(56, 45, 47, 182);
 
-  var listFolders = [
-    {"name": "Личные", "status": true}, {"name": "Непрочитанные", "status": false},
-    {"name": "Учёба", "status": true}
-  ];
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(

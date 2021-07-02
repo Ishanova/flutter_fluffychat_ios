@@ -3,8 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/message/messagesView.dart';
 import 'package:flutter_fluffychat_ios/helper//indicator.dart';
-import 'package:flutter_fluffychat_ios/models/message.dart';
-import 'package:flutter_fluffychat_ios/models/onlineStatus.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 

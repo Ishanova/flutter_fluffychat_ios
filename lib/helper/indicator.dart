@@ -9,8 +9,8 @@ class Indicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         constraints: BoxConstraints(minHeight: height, minWidth: width),
-        width: (counter != null) ? 6 : height,
-        height: (counter != null) ? 6 : width,
+/*        width: (counter != null) ? 6 : height,
+        height: (counter != null) ? 6 : width,*/
         margin: EdgeInsets.fromLTRB(5, 3, 0, 0),
         padding: EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
