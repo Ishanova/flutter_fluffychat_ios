@@ -3,28 +3,56 @@ import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/helper/indicator.dart';
 import 'package:flutter/rendering.dart';
 
-class ChatTab extends StatelessWidget {
+class ChatTab extends StatefulWidget {
+  int folderID;
   String tabName;
   int counter;
+  int activeTabID;
+  Function(int, double, double) callback;
 
-  ChatTab(this.tabName, this.counter);
+  ChatTab(
+      {Key key,
+      this.folderID,
+      this.tabName,
+      this.counter,
+      this.activeTabID,
+      this.callback})
+      : super(key: key);
+
+  @override
+  _ChatTabState createState() => _ChatTabState();
+}
+
+class _ChatTabState extends State<ChatTab> {
+  GlobalKey _key = GlobalKey();
+  double _x, _y;
+
+  _getOffset(BuildContext context) {
+    RenderBox box = context.findRenderObject();
+    Offset position = box.localToGlobal(Offset.zero);
+    setState(() {
+      _x = position.dx;
+      _y = position.dy;
+    });
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          Text(tabName,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-          (counter != 0) ? Indicator(1, counter) : Text(""),
-        ],
-      ),
-      decoration: BoxDecoration(
-       // borderRadius: BorderRadius.circular(10),
-        border: Border(
-          bottom: BorderSide(width: 2, color: blue),
+    // print(context.size);
+    return GestureDetector(
+      onTap: () {
+        _getOffset(context);
+        widget.callback(widget.folderID, context.size.width, _x);
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 16),
+        child: Row(
+          children: [
+            Text(widget.tabName,
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+            (widget.counter != 0) ? Indicator(1, widget.counter) : Text(""),
+          ],
         ),
       ),
     );

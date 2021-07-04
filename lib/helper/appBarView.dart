@@ -76,8 +76,8 @@ class AppBarView extends StatelessWidget {
          ),*/
            SliverPersistentHeader(
              delegate: _SliverAppBarDelegate(
-                 collapsedHeight: 48,
-                 expandedHeight: 48),
+                 collapsedHeight: 35,
+                 expandedHeight: 35),
              pinned: true,
            )
          ],
@@ -146,7 +146,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
 
     return new Container(
-        height: 48,
+        height: 35,
         color: AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
         child: TabBar());
   }
