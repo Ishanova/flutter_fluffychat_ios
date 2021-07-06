@@ -1,10 +1,15 @@
 import 'package:flutter/cupertino.dart';
+
+
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/helper/tabBar.dart';
 import 'package:flutter_fluffychat_ios/helper/is_nav_bar.dart';
+import 'package:flutter_fluffychat_ios/helper/cutom_tabs.dart';
 import 'package:flutter_fluffychat_ios/theme/theme.dart';
 import 'dart:math' as math;
 
+
+double height = 100;
 
 class AppBarView extends StatelessWidget {
 
@@ -76,8 +81,9 @@ class AppBarView extends StatelessWidget {
          ),*/
            SliverPersistentHeader(
              delegate: _SliverAppBarDelegate(
-                 collapsedHeight: 35,
-                 expandedHeight: 35),
+                 collapsedHeight: height,
+                 expandedHeight: height
+             ),
              pinned: true,
            )
          ],
@@ -145,8 +151,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
 
-    return new Container(
-        height: 35,
+    return Container(
+        height: height,
         color: AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
         child: TabBar());
   }

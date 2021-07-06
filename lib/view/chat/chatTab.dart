@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/helper/indicator.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 
 class ChatTab extends StatefulWidget {
   int folderID;
