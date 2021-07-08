@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
-
+// import 'package:flutter/material.dart';
 
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
-import 'package:flutter_fluffychat_ios/helper/tabBar.dart';
+// import 'package:flutter_fluffychat_ios/helper/tabBar.dart';
 import 'package:flutter_fluffychat_ios/helper/is_nav_bar.dart';
-import 'package:flutter_fluffychat_ios/helper/cutom_tabs.dart';
+import 'package:flutter_fluffychat_ios/helper/tab_controller_remake.dart';
+import 'package:flutter_fluffychat_ios/helper/tabs_remake.dart';
+import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 import 'package:flutter_fluffychat_ios/theme/theme.dart';
 import 'dart:math' as math;
 
@@ -154,7 +156,23 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
     return Container(
         height: height,
         color: AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
-        child: TabBar());
+        child: DefaultTabController(
+          length: me.folders.length,
+          child: TabBar(
+            isScrollable: true,
+            indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+            tabs: me.folders.map((element) {
+              return SizedBox(
+                  height: 35,
+                  child: new Tab(
+                    text: element.folderName,
+                    counter: 13,
+                  ),
+                  );
+            }).toList(),
+          ),
+        ),
+        );
   }
   @override
   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {

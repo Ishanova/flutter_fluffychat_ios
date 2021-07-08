@@ -7,3 +7,4 @@ final grey = const Color.fromARGB(125, 67, 66, 68);
 final transparentGrey = const Color.fromARGB(25, 67, 66, 68);
 final black = const Color.fromARGB(255, 0, 0, 0);
 final white = const Color.fromARGB(255, 255, 255, 255);
+final transparent = const Color.fromARGB(0, 0, 0, 0);
