@@ -44,8 +44,8 @@ class _TabBarState extends State<TabBar> {
             activeTabID: widget.activeTabID,
             folderID: element.folderID,
             tabName: element.folderName,
-            counter: countUnread(element.getFolderID())),
-      );
+           // counter: countUnread(element.getFolderID())),
+      ));
     }).toList();
     folders.add(folderSettingsBtn);
     return Column(
@@ -130,22 +130,4 @@ class _TabBarState extends State<TabBar> {
 // ),
 // ),
 
-int countUnread(int folderID) {
-  int counter = 0;
-  if (folderID == 1) {
-    return 0;
-  }
-  for (Folder i in me.folders) {
-    if (i.folderID == folderID) {
-      for (Chat j in chats) {
-        if (i.chatsID.contains(j.chatID)) {
-          if (j.unreadCount(me.userID) != 0) {
-            counter++;
-          }
-        }
-      }
-      break;
-    }
-  }
-  return counter;
-}
+

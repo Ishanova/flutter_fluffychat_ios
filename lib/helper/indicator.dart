@@ -7,7 +7,8 @@ class Indicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return counter != 0 || counter == null
+        ? Container(
         constraints: BoxConstraints(minHeight: height, minWidth: width),
 /*        width: (counter != null) ? 6 : height,
         height: (counter != null) ? 6 : width,*/
@@ -35,7 +36,8 @@ class Indicator extends StatelessWidget {
                   fontSize: 11,
                   color: white,
                 ),
-              ));
+              ))
+        : Container();
   }
 
   Indicator(int size, [int counter]) {

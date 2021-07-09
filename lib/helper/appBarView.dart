@@ -2,42 +2,45 @@ import 'package:flutter/cupertino.dart';
 // import 'package:flutter/material.dart';
 
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
+
 // import 'package:flutter_fluffychat_ios/helper/tabBar.dart';
 import 'package:flutter_fluffychat_ios/helper/is_nav_bar.dart';
 import 'package:flutter_fluffychat_ios/helper/tab_controller_remake.dart';
 import 'package:flutter_fluffychat_ios/helper/tabs_remake.dart';
+import 'package:flutter_fluffychat_ios/models/chat.dart';
+import 'package:flutter_fluffychat_ios/models/folder.dart';
 import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 import 'package:flutter_fluffychat_ios/theme/theme.dart';
 import 'dart:math' as math;
 
+import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 
-double height = 100;
 
 class AppBarView extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return CupertinoPageScaffold(
       child: CustomScrollView(
-         slivers: [
-                 ISSliverNavigationBar(
-                   previousPageTitle: "",
-                   border: Border.all(style: BorderStyle.none),
-                   strokeTitle: Text(
-                     "CHAT",
-                     maxLines: 1,
-                   ),
-                   strokeColor: darkBlue,
-                   largeTitle: Text("Чат"),
-                   //actionsForegroundColor:blue,
-                   foreground: Paint()
-                     ..shader = LinearGradient(
-                       begin: Alignment.topLeft,
-                       end: Alignment.bottomRight,
-                       colors: [black, black],
-                     ).createShader(Rect.fromLTWH(0, 0, 144, 41)),
-                 ),
-         /*CupertinoSliverNavigationBar(
+        slivers: [
+          ISSliverNavigationBar(
+            previousPageTitle: "",
+            border: Border.all(style: BorderStyle.none),
+            strokeTitle: Text(
+              "CHAT",
+              maxLines: 1,
+            ),
+            strokeColor: darkBlue,
+            largeTitle: Text("Чат"),
+            //actionsForegroundColor:blue,
+            foreground: Paint()
+              ..shader = LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [black, black],
+              ).createShader(Rect.fromLTWH(0, 0, 144, 41)),
+          ),
+          /*CupertinoSliverNavigationBar(
            //: Text("Чат"),
            backgroundColor: white,
            largeTitle: Stack (
@@ -81,15 +84,13 @@ class AppBarView extends StatelessWidget {
              ],
            ),
          ),*/
-           SliverPersistentHeader(
-             delegate: _SliverAppBarDelegate(
-                 collapsedHeight: height,
-                 expandedHeight: height
-             ),
-             pinned: true,
-           )
-         ],
-       ),
+          SliverPersistentHeader(
+            delegate: _SliverAppBarDelegate(
+                collapsedHeight: height - 65, expandedHeight: height - 42, height: height),
+            pinned: true,
+          )
+        ],
+      ),
     );
     /*
           ),
@@ -129,8 +130,9 @@ class AppBarView extends StatelessWidget {
 }
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
-
+  final double height;
   _SliverAppBarDelegate({
+    @required this.height,
     @required this.collapsedHeight,
     @required this.expandedHeight,
   });
@@ -150,32 +152,90 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get maxExtent => math.max(expandedHeight, minExtent);
 
-  @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  int countUnread(int folderID) {
+    int counter = 0;
+    if (folderID == 1) return 0;
+    for (Folder i in me.folders) {
+      if (i.folderID == folderID) {
+        for (Chat j in chats) {
+          if (i.chatsID.contains(j.chatID)) {
+            if (j.unreadCount(me.userID) != 0) {
+              counter++;
+            }
+          }
+        }
+        break;
+      }
+    }
+    return counter;
+  }
 
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
-        height: height,
-        color: AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
-        child: DefaultTabController(
-          length: me.folders.length,
-          child: TabBar(
-            isScrollable: true,
-            indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-            tabs: me.folders.map((element) {
-              return SizedBox(
-                  height: 35,
-                  child: new Tab(
-                    text: element.folderName,
-                    counter: 13,
-                  ),
+      height: height,
+      color: AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
+      child: DefaultTabController(
+        length: me.folders.length,
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: Column(
+            children: [
+              TabBar(
+                isScrollable: true,
+                // indicatorColor: blue,
+                labelColor: black,
+                unselectedLabelColor: grey,
+                indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                tabs: me.folders.map((element) {
+                  return SizedBox(
+                    height: 35,
+                    child: new Tab(
+                      text: element.folderName,
+                      counter: countUnread(element.folderID),
+                    ),
                   );
-            }).toList(),
+                }).toList(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 8),
+                child: TabBarView(
+                  children: me.folders.map((element) {
+                    return SizedBox(
+                      height: 35,
+                      child: Text(element.folderName),
+                    );
+                  }).toList(),
+                ),
+              )
+            ],
           ),
         ),
-        );
+      ),
+    );
   }
+
   @override
   bool shouldRebuild(_SliverAppBarDelegate oldDelegate) {
     return true; // activeKey != oldDelegate.activeKey; //expandedHeight != oldDelegate.expandedHeight || collapsedHeight != oldDelegate.collapsedHeight;
   }
+}
+
+int countUnread(int folderID) {
+  int counter = 0;
+  if (folderID == 1) return 0;
+  for (Folder i in me.folders) {
+    if (i.folderID == folderID) {
+      for (Chat j in chats) {
+        if (i.chatsID.contains(j.chatID)) {
+          if (j.unreadCount(me.userID) != 0) {
+            counter++;
+          }
+        }
+      }
+      break;
+    }
+  }
+  return counter;
 }

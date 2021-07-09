@@ -3,8 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/widgets.dart';
-import 'package:flutter_fluffychat_ios/helper/colors.dart';
 
+import 'colors.dart';
 
 /// Used with [TabBar.indicator] to draw a horizontal line below the
 /// selected tab.
@@ -13,8 +13,8 @@ import 'package:flutter_fluffychat_ios/helper/colors.dart';
 /// The [borderSide] defines the line's color and weight.
 ///
 /// The [TabBar.indicatorSize] property can be used to define the indicator's
-/// bounds in terms of its (centered) widget with [TabBarIndicatorSize.label],
-/// or the entire tab with [TabBarIndicatorSize.tab].
+/// bounds in terms of its (centered) widget with [TabIndicatorSize.label],
+/// or the entire tab with [TabIndicatorSize.tab].
 class UnderlineTabIndicator extends Decoration {
   /// Create an underline style selected tab indicator.
   ///
@@ -24,7 +24,7 @@ class UnderlineTabIndicator extends Decoration {
     this.insets = EdgeInsets.zero,
   }) : assert(borderSide != null),
         assert(insets != null) {
-    this.borderSide = BorderSide(width: 2.0, color: white);
+    this.borderSide = BorderSide(width: 2.0, color: blue);
   }
 
   /// The color and weight of the horizontal line drawn below the selected tab.
@@ -32,10 +32,9 @@ class UnderlineTabIndicator extends Decoration {
 
   /// Locates the selected tab's underline relative to the tab's boundary.
   ///
-  /// The [TabBar.indicatorSize] property can be used to define the tab
-  /// indicator's bounds in terms of its (centered) tab widget with
-  /// [TabBarIndicatorSize.label], or the entire tab with
-  /// [TabBarIndicatorSize.tab].
+  /// The [TabBar.indicatorSize] property can be used to define the
+  /// tab indicator's bounds in terms of its (centered) tab widget with
+  /// [TabIndicatorSize.label], or the entire tab with [TabIndicatorSize.tab].
   final EdgeInsetsGeometry insets;
 
   @override
@@ -64,6 +63,17 @@ class UnderlineTabIndicator extends Decoration {
   _UnderlinePainter createBoxPainter([ VoidCallback onChanged ]) {
     return _UnderlinePainter(this, onChanged);
   }
+}
+
+class _UnderlinePainter extends BoxPainter {
+  _UnderlinePainter(this.decoration, VoidCallback onChanged)
+      : assert(decoration != null),
+        super(onChanged);
+
+  final UnderlineTabIndicator decoration;
+
+  BorderSide get borderSide => decoration.borderSide;
+  EdgeInsetsGeometry get insets => decoration.insets;
 
   Rect _indicatorRectFor(Rect rect, TextDirection textDirection) {
     assert(rect != null);
@@ -78,26 +88,13 @@ class UnderlineTabIndicator extends Decoration {
   }
 
   @override
-  Path getClipPath(Rect rect, TextDirection textDirection) {
-    return Path()..addRect(_indicatorRectFor(rect, textDirection));
-  }
-}
-
-class _UnderlinePainter extends BoxPainter {
-  _UnderlinePainter(this.decoration, VoidCallback onChanged)
-      : assert(decoration != null),
-        super(onChanged);
-
-  final UnderlineTabIndicator decoration;
-
-  @override
   void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
     assert(configuration != null);
     assert(configuration.size != null);
     final Rect rect = offset & configuration.size;
     final TextDirection textDirection = configuration.textDirection;
-    final Rect indicator = decoration._indicatorRectFor(rect, textDirection).deflate(decoration.borderSide.width / 2.0);
-    final Paint paint = decoration.borderSide.toPaint()..strokeCap = StrokeCap.square;
+    final Rect indicator = _indicatorRectFor(rect, textDirection).deflate(borderSide.width / 2.0);
+    final Paint paint = borderSide.toPaint()..strokeCap = StrokeCap.square;
     canvas.drawLine(indicator.bottomLeft, indicator.bottomRight, paint);
   }
 }

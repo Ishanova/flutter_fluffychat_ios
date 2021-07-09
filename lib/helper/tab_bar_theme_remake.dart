@@ -2,12 +2,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 
 import 'tabs_remake.dart';
-//import 'theme_remake.dart';
-
 /// Defines a theme for [TabBar] widgets.
 ///
 /// A tab bar theme describes the color of the tab label and the size/shape of
@@ -22,7 +23,6 @@ import 'tabs_remake.dart';
 ///  * [TabBar], a widget that displays a horizontal row of tabs.
 ///  * [ThemeData], which describes the overall theme information for the
 ///    application.
-@immutable
 class TabBarTheme with Diagnosticable {
   /// Creates a tab bar theme that can be used with [ThemeData.tabBarTheme].
   const TabBarTheme({
@@ -79,9 +79,9 @@ class TabBarTheme with Diagnosticable {
   }
 
   /// The data from the closest [TabBarTheme] instance given the build context.
-  static TabBarTheme of(BuildContext context) {
-    //return Theme.of(context).tabBarTheme;
-  }
+  /*static TabBarTheme of(BuildContext context) {
+    return CupertinoTheme.of(context).tabBarTheme;
+  }*/
 
   /// Linearly interpolate between two tab bar themes.
   ///

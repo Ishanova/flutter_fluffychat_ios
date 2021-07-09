@@ -9,7 +9,7 @@ import 'package:flutter/widgets.dart';
 //import 'constants.dart';
 
 // Examples can assume:
-// late BuildContext context;
+// BuildContext context;
 
 /// Coordinates tab selection between a [TabBar] and a [TabBarView].
 ///
@@ -32,18 +32,18 @@ import 'package:flutter/widgets.dart';
 ///
 /// ```dart
 /// class MyTabbedPage extends StatefulWidget {
-///   const MyTabbedPage({ Key? key }) : super(key: key);
+///   const MyTabbedPage({ Key key }) : super(key: key);
 ///   @override
 ///   _MyTabbedPageState createState() => _MyTabbedPageState();
 /// }
 ///
 /// class _MyTabbedPageState extends State<MyTabbedPage> with SingleTickerProviderStateMixin {
-///   static const List<Tab> myTabs = <Tab>[
+///   final List<Tab> myTabs = <Tab>[
 ///     Tab(text: 'LEFT'),
 ///     Tab(text: 'RIGHT'),
 ///   ];
 ///
-///   late TabController _tabController;
+///   TabController _tabController;
 ///
 ///   @override
 ///   void initState() {
@@ -69,7 +69,7 @@ import 'package:flutter/widgets.dart';
 ///       body: TabBarView(
 ///         controller: _tabController,
 ///         children: myTabs.map((Tab tab) {
-///           final String label = tab.text!.toLowerCase();
+///           final String label = tab.text.toLowerCase();
 ///           return Center(
 ///             child: Text(
 ///               'This is the $label tab',
@@ -83,61 +83,8 @@ import 'package:flutter/widgets.dart';
 /// }
 /// ```
 /// {@end-tool}
-///
-/// {@tool dartpad --template=stateless_widget_material}
-///
-/// This example shows how to listen to page updates in [TabBar] and [TabBarView]
-/// when using [DefaultTabController].
-///
-/// ```dart preamble
-/// const List<Tab> tabs = <Tab>[
-///   Tab(text: 'Zeroth'),
-///   Tab(text: 'First'),
-///   Tab(text: 'Second'),
-/// ];
-/// ```
-///
-/// ```dart
-/// Widget build(BuildContext context) {
-///   return DefaultTabController(
-///     length: tabs.length,
-///     // The Builder widget is used to have a different BuildContext to access
-///     // closest DefaultTabController.
-///     child: Builder(
-///       builder: (BuildContext context) {
-///         final TabController tabController = DefaultTabController.of(context)!;
-///         tabController.addListener(() {
-///           if (!tabController.indexIsChanging) {
-///             // Your code goes here.
-///             // To get index of current tab use tabController.index
-///           }
-///         });
-///         return Scaffold(
-///           appBar: AppBar(
-///             bottom: const TabBar(
-///               tabs: tabs,
-///             ),
-///           ),
-///           body: TabBarView(
-///             children: tabs.map((Tab tab){
-///               return Center(
-///                 child: Text(
-///                   tab.text! + ' Tab',
-///                   style: Theme.of(context).textTheme.headline5,
-///                 ),
-///               );
-///             }).toList(),
-///           ),
-///         );
-///       }
-///     ),
-///   );
-/// }
-/// ```
-/// {@end-tool}
-///
 class TabController extends ChangeNotifier {
-  /// Creates an object that manages the state  by [TabBar] and a
+  /// Creates an object that manages the state required by [TabBar] and a
   /// [TabBarView].
   ///
   /// The [length] must not be null or negative. Typically it's a value greater
@@ -146,7 +93,7 @@ class TabController extends ChangeNotifier {
   ///
   /// The `initialIndex` must be valid given [length] and must not be null. If
   /// [length] is zero, then `initialIndex` must be 0 (the default).
-  TabController({ int initialIndex = 0, this.length, TickerProvider vsync })
+  TabController({ int initialIndex = 0, @required this.length, @required TickerProvider vsync })
       : assert(length != null && length >= 0),
         assert(initialIndex != null && initialIndex >= 0 && (length == 0 || initialIndex < length)),
         _index = initialIndex,
@@ -159,10 +106,10 @@ class TabController extends ChangeNotifier {
   // Private constructor used by `_copyWith`. This allows a new TabController to
   // be created without having to create a new animationController.
   TabController._({
-     int index,
-     int previousIndex,
-     AnimationController animationController,
-     this.length,
+    int index,
+    int previousIndex,
+    AnimationController animationController,
+    @required this.length,
   }) : _index = index,
         _previousIndex = previousIndex,
         _animationController = animationController;
@@ -175,11 +122,7 @@ class TabController extends ChangeNotifier {
   ///
   /// When [DefaultTabController.length] is updated, this method is called to
   /// create a new [TabController] without creating a new [AnimationController].
-  TabController _copyWith({
-     int index,
-     int length,
-     int previousIndex,
-  }) {
+  TabController _copyWith({ int index, int length, int previousIndex }) {
     return TabController._(
       index: index ?? _index,
       length: length ?? this.length,
@@ -222,10 +165,8 @@ class TabController extends ChangeNotifier {
       _animationController
           .animateTo(_index.toDouble(), duration: duration, curve: curve)
           .whenCompleteOrCancel(() {
-        if (_animationController != null) { // don't notify if we've been disposed
-          _indexIsChangingCount -= 1;
-          notifyListeners();
-        }
+        _indexIsChangingCount -= 1;
+        notifyListeners();
       });
     } else {
       _indexIsChangingCount += 1;
@@ -303,9 +244,9 @@ class TabController extends ChangeNotifier {
 class _TabControllerScope extends InheritedWidget {
   const _TabControllerScope({
     Key key,
-     this.controller,
-     this.enabled,
-     Widget child,
+    this.controller,
+    this.enabled,
+    Widget child,
   }) : super(key: key, child: child);
 
   final TabController controller;
@@ -319,8 +260,6 @@ class _TabControllerScope extends InheritedWidget {
 
 /// The [TabController] for descendant widgets that don't specify one
 /// explicitly.
-///
-/// {@youtube 560 315 https://www.youtube.com/watch?v=POtoEH-5l40}
 ///
 /// [DefaultTabController] is an inherited widget that is used to share a
 /// [TabController] with a [TabBar] or a [TabBarView]. It's used when sharing an
@@ -372,9 +311,9 @@ class DefaultTabController extends StatefulWidget {
   /// The [initialIndex] argument must not be null.
   const DefaultTabController({
     Key key,
-     this.length,
+    @required this.length,
     this.initialIndex = 0,
-     this.child,
+    @required this.child,
   }) : assert(initialIndex != null),
         assert(length >= 0),
         assert(length == 0 || (initialIndex >= 0 && initialIndex < length)),
@@ -395,7 +334,7 @@ class DefaultTabController extends StatefulWidget {
   ///
   /// Typically a [Scaffold] whose [AppBar] includes a [TabBar].
   ///
-  /// {@macro flutter.widgets.ProxyWidget.child}
+  /// {@macro flutter.widgets.child}
   final Widget child;
 
   /// The closest instance of this class that encloses the given context.
@@ -404,7 +343,7 @@ class DefaultTabController extends StatefulWidget {
   /// Typical usage is as follows:
   ///
   /// ```dart
-  /// TabController controller = DefaultTabController.of(context)!;
+  /// TabController controller = DefaultTabController.of(context);
   /// ```
   /// {@end-tool}
   static TabController of(BuildContext context) {
