@@ -1,28 +1,38 @@
-import 'chat.dart';
 import 'onlineStatus.dart';
 
 class User {
-  String userID, image; // имя и аватарка
+  int userId;
+  String name, image; // имя и аватарка
   OnlineStatus onlineStatus;
   Set<String> mutedChatsName; //список заглушенных чатов
 
-
-  User(String userID, image,
-      OnlineStatus onlineStatus,
+  User(int userId, String name, image, OnlineStatus onlineStatus,
       Set<String> mutedChatsName) {
-    this.userID = userID;
+    this.userId = userId;
+    this.name = name;
     this.image = image;
     this.onlineStatus = onlineStatus;
     this.mutedChatsName = mutedChatsName;
   }
-  User.defArgs(){
-    this.userID = userID;
+  User.getName(int id){
+    if(id == userId)
+      this.name = name;
+  }
+
+  User.defArgs() {
+    this.name = name;
     this.image = image;
     this.onlineStatus = onlineStatus;
     this.mutedChatsName = mutedChatsName;
   }
 
-  bool isMute(String toCompare){
+/*  User getUser(int id){
+    if(id == userId)
+      return()
+}*/
+  bool isMute(String toCompare) {
     return mutedChatsName.contains(toCompare);
   }
+
+
 }

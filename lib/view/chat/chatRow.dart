@@ -60,7 +60,7 @@ class ChatRow extends ListTile {
                           width: 250,
                           child: Row(
                             children: [
-                              Text(toRow.getChatName(user.userID), style: new TextStyle(
+                              Text(toRow.getChatName(), style: new TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold
                               ),),
@@ -82,7 +82,7 @@ class ChatRow extends ListTile {
                         Container(
                           child:
                           Text(
-                            (isFromMe(user.userID, toRow.messageList.last.senderID) ? "Вы: " : (!toRow.isStudy ? "" : (NameView(toRow.messageList.last.senderID) + ": "))),
+                            (isFromMe(user.name, toRow.messageList.last.senderID) ? "Вы: " : (!toRow.isStudy ? "" : (NameView(toRow.messageList.last.senderID) + ": "))),
                             style: TextStyle (
                                 color: backgroundColor
                             ),
@@ -112,9 +112,9 @@ class ChatRow extends ListTile {
 
               Expanded(
                 child: Visibility(
-                  visible: !toRow.messageList.last.isRead(user.userID),
+                  visible: !toRow.messageList.last.isRead(user.name),
                   child: Align(
-                    child: Indicator(1, toRow.unreadCount(user.userID))
+                    child: Indicator(1, toRow.unreadCount(user.name))
                     /*Container(
                         margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
                         padding: EdgeInsets.symmetric(vertical: 1, horizontal: 5),
