@@ -180,10 +180,15 @@ class _TabStyle extends AnimatedWidget {
     // the same value of inherit. Force that to be inherit=true here.
 
     final TextStyle defaultStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: black);
-    final TextStyle defaultUnselectedStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: grey);
+    final TextStyle defaultUnselectedStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: black);
     final TextStyle textStyle = selected
         ? TextStyle.lerp(defaultStyle, defaultUnselectedStyle, animation.value)
         : TextStyle.lerp(defaultUnselectedStyle, defaultStyle, animation.value);
+    final Color selectedColor = black;
+    final Color unselectedColor = grey; // 70% alpha
+    final Color color = selected
+        ? Color.lerp(selectedColor, unselectedColor, animation.value)
+        : Color.lerp(unselectedColor, selectedColor, animation.value);
 
     /*final TextStyle defaultStyle = (labelStyle
         ?? tabBarTheme.labelStyle
@@ -209,11 +214,11 @@ class _TabStyle extends AnimatedWidget {
         : Color.lerp(unselectedColor, selectedColor, animation.value);*/
 
     return DefaultTextStyle(
-      style: textStyle.copyWith(color: black), ///!!!
+      style: textStyle.copyWith(color: color), ///!!!
       child: IconTheme.merge(
         data: IconThemeData(
           size: 24.0,
-          color: blue,
+          color: color,
         ),
         child: child,
       ),

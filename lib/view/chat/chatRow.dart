@@ -4,11 +4,13 @@ import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/message/messagesView.dart';
 import 'package:flutter_fluffychat_ios/helper//indicator.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
+import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
+
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
 class ChatRow extends Scrollable{
   Chat toRow;
-  User user;
+  User user = me;
 
 
   @override
@@ -123,9 +125,8 @@ class ChatRow extends Scrollable{
   );
   }
 
-  ChatRow(Chat toRow, User user) {
+  ChatRow(Chat toRow) {
     this.toRow = toRow;
-    this.user = user;
   }
   bool isMute(User toCompare){
     return toRow.memberList.contains(toCompare);

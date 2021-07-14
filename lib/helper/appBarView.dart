@@ -204,7 +204,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                   children: me.folders.map((element) {
                     return SizedBox(
                       height: 35,
-                      child: Text(element.folderName),
+                      child: ChatsList(element),
                     );
                   }).toList(),
                 ),
