@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 // import 'package:flutter/material.dart';
 
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
@@ -24,6 +25,16 @@ class AppBarView extends StatelessWidget {
       child: CustomScrollView(
         slivers: [
           ISSliverNavigationBar(
+            middle: Row(
+              children: [
+                IconButton(
+                  icon: ,
+                  color: blue,
+                  iconSize: 23,
+                ),
+
+              ],
+            ),
             previousPageTitle: "",
             border: Border.all(style: BorderStyle.none),
             strokeTitle: Text(
@@ -40,6 +51,7 @@ class AppBarView extends StatelessWidget {
                 colors: [black, black],
               ).createShader(Rect.fromLTWH(0, 0, 144, 41)),
           ),
+
           /*CupertinoSliverNavigationBar(
            //: Text("Чат"),
            backgroundColor: white,
@@ -84,6 +96,7 @@ class AppBarView extends StatelessWidget {
              ],
            ),
          ),*/
+
           SliverPersistentHeader(
             delegate: _SliverAppBarDelegate(
                 collapsedHeight: height - 65, expandedHeight: height - 42, height: height),
@@ -182,21 +195,36 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
           height: MediaQuery.of(context).size.height,
           child: Column(
             children: [
-              TabBar(
-                isScrollable: true,
-                // indicatorColor: blue,
-                labelColor: black,
-                unselectedLabelColor: grey,
-                indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
-                tabs: me.folders.map((element) {
-                  return SizedBox(
-                    height: 35,
-                    child: new Tab(
-                      text: element.folderName,
-                      counter: countUnread(element.folderID),
+              Container(
+                height: 35,
+                child: ListView(
+                  // shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    TabBar(
+                    isScrollable: true,
+                    labelColor: black,
+                    unselectedLabelColor: grey,
+                    indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                    tabs: me.folders.map((element) {
+                      return SizedBox(
+                        height: 35,
+                        child: new Tab(
+                          text: element.folderName,
+                          counter: countUnread(element.folderID),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(CupertinoIcons.slider_horizontal_3,
+                        color: grey,
+                        size: 22,
+                      ),
                     ),
-                  );
-                }).toList(),
+                  ]
+                ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 8),
