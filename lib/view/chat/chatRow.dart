@@ -8,13 +8,15 @@ import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
-class ChatRow extends Scrollable{
+class ChatRow extends StatelessWidget {
   Chat toRow;
   User user = me;
 
 
   @override
   Widget build(BuildContext context) {
+
+    print("____1____");
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
@@ -22,6 +24,7 @@ class ChatRow extends Scrollable{
         );
       },
       child: Container(
+         // color: Color(0xFF00FF00),
           child: Row(
             children: [
               Stack(
@@ -49,7 +52,6 @@ class ChatRow extends Scrollable{
                   )
                 ],
               ),
-
               Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -109,7 +111,6 @@ class ChatRow extends Scrollable{
                   ),
                 flex: 5,
               ),
-
               Expanded(
                 child: Visibility(
                   visible: !toRow.messageList.last.isRead(user.userID),

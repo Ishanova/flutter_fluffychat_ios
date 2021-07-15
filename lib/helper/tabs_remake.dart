@@ -179,8 +179,8 @@ class _TabStyle extends AnimatedWidget {
     // To enable TextStyle.lerp(style1, style2, value), both styles must have
     // the same value of inherit. Force that to be inherit=true here.
 
-    final TextStyle defaultStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: black);
-    final TextStyle defaultUnselectedStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w500, color: black);
+    final TextStyle defaultStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: black, fontFamily: "SFProText");
+    final TextStyle defaultUnselectedStyle = TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: black, fontFamily: "SFProText");
     final TextStyle textStyle = selected
         ? TextStyle.lerp(defaultStyle, defaultUnselectedStyle, animation.value)
         : TextStyle.lerp(defaultUnselectedStyle, defaultStyle, animation.value);
@@ -214,7 +214,7 @@ class _TabStyle extends AnimatedWidget {
         : Color.lerp(unselectedColor, selectedColor, animation.value);*/
 
     return DefaultTextStyle(
-      style: textStyle.copyWith(color: color), ///!!!
+      style: textStyle.copyWith(color: color),
       child: IconTheme.merge(
         data: IconThemeData(
           size: 24.0,

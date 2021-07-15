@@ -24,8 +24,6 @@ class MessageRow extends Scrollable{
                    color: blue,
                   // padding: EdgeInsets.all(7),
                  ),
-                 width: 300,
-                 height: 50,
                  child: Text(
                      message.messageText,
                    style: TextStyle(

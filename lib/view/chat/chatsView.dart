@@ -12,12 +12,11 @@ class ChatsList extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return ListView(
-      children: [
-        Container(),
-        // tabChats.chatsID.map((chatID) {
-        //   return new ChatRow(getChatByID(chatID));
-        // }).toList(),
-      ],
+      shrinkWrap: true,
+      children:
+        tabChats.chatsID.map((chatID) {
+          return new ChatRow(getChatByID(chatID));
+        }).toList(),
     );
   }
 
@@ -26,7 +25,7 @@ class ChatsList extends StatelessWidget {
   }
 }
 
-Chat getChatByID(int id) {
+Chat getChatByID(String id) {
   for (Chat i in chats) {
     if (i.chatID == id) {
       return i;

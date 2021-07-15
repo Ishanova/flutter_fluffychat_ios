@@ -1,10 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 // import 'package:flutter/material.dart';
 
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
-
-// import 'package:flutter_fluffychat_ios/helper/tabBar.dart';
 import 'package:flutter_fluffychat_ios/helper/is_nav_bar.dart';
 import 'package:flutter_fluffychat_ios/helper/tab_controller_remake.dart';
 import 'package:flutter_fluffychat_ios/helper/tabs_remake.dart';
@@ -12,97 +9,216 @@ import 'package:flutter_fluffychat_ios/models/chat.dart';
 import 'package:flutter_fluffychat_ios/models/folder.dart';
 import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 import 'package:flutter_fluffychat_ios/theme/theme.dart';
+import 'package:flutter_fluffychat_ios/icons_chat.dart';
+import 'package:flutter_fluffychat_ios/view/chat/chatRow.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 
+class AppBarView extends StatefulWidget {
+  @override
+  _AppBarViewState createState() => _AppBarViewState();
+}
 
-class AppBarView extends StatelessWidget {
+class _AppBarViewState extends State<AppBarView>
+    with SingleTickerProviderStateMixin {
+  TabController tabController;
+  int page = 0;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    tabController = new TabController(length: me.folders.length, vsync: this);
+    tabController.addListener(() {
+      print(tabController.index);
+      print(me.folders.elementAt(page).chatsID);
+      setState(() {
+        page = tabController.index;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    double height = MediaQuery.of(context).size.height;
+    double height = 100;
     return CupertinoPageScaffold(
-      child: CustomScrollView(
-        slivers: [
-          ISSliverNavigationBar(
-            middle: Row(
-              children: [
-                IconButton(
-                  icon: ,
-                  color: blue,
-                  iconSize: 23,
+      child: NestedScrollView(
+        headerSliverBuilder: (context, flag){
+          return [
+            ISSliverNavigationBar(
+              trailing: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CupertinoButton(
+                    onPressed: () {},
+                    child: Icon(
+                      Icons_Chat.call_plus_out_28,
+                      color: blue,
+                      size: 28,
+                    ),
+                  ),
+                  CupertinoButton(
+                    onPressed: () {},
+                    child: Icon(
+                      Icons_Chat.pen_out_28,
+                      color: blue,
+                      size: 28,
+                    ),
+                  ),
+                ],
+              ),
+              previousPageTitle: "",
+              border: Border.all(style: BorderStyle.none),
+              strokeTitle: Text(
+                "CHAT",
+                maxLines: 1,
+                style: TextStyle(
+                  fontSize: 55,
+                  fontWeight: FontWeight.w700,
+                  fontFamily: "SFProDisplay",
                 ),
-
-              ],
+              ),
+              strokeColor: darkBlue,
+              largeTitle: Text(
+                "Чат",
+              ),
             ),
-            previousPageTitle: "",
-            border: Border.all(style: BorderStyle.none),
-            strokeTitle: Text(
-              "CHAT",
-              maxLines: 1,
+            SliverPersistentHeader(
+              delegate: _SliverAppBarDelegate(
+                  tabController: tabController,
+                  collapsedHeight: height - 65,
+                  expandedHeight: height - 42,
+                  height: 60),
+              pinned: true,
             ),
-            strokeColor: darkBlue,
-            largeTitle: Text("Чат"),
-            //actionsForegroundColor:blue,
-            foreground: Paint()
-              ..shader = LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [black, black],
-              ).createShader(Rect.fromLTWH(0, 0, 144, 41)),
-          ),
+          ];
+        },
+        body: TabBarView(
+              controller: tabController,
+              children: me.folders.map((element) {
+                return ChatsList(element);
+              }).toList(),
+            )
 
-          /*CupertinoSliverNavigationBar(
-           //: Text("Чат"),
-           backgroundColor: white,
-           largeTitle: Stack (
-             children: [
-               Container(
-                 margin: EdgeInsets.fromLTRB(45, 15, 0, 0),
-                 child: Stack(
-                   children: <Widget>[
-                     Text(
-                       'CHAT',
-                       style: TextStyle(
-                         fontSize: 50,
-                         fontWeight: FontWeight.w500,
-                         foreground: Paint()
-                           ..style = PaintingStyle.stroke
-                           ..strokeWidth = 3
-                           ..color = blue,
-                       ),
-                     ),
-                     Text(
-                       'CHAT',
-                       style: TextStyle(
-                         fontSize: 50,
-                         fontWeight: FontWeight.w500,
-                         color: white,
-                       ),
-                     ),
-                   ],
-                 ),
-               ),
-               Container(
-                 margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
-                 child:  Text("Чат",
-                   style: new TextStyle(
-                       fontSize: 34,
-                       fontWeight: FontWeight.w800,
-                       color: black
-                   ),
-                 ),
-               ),
-             ],
-           ),
-         ),*/
-
-          SliverPersistentHeader(
-            delegate: _SliverAppBarDelegate(
-                collapsedHeight: height - 65, expandedHeight: height - 42, height: height),
-            pinned: true,
-          )
-        ],
+        // [
+        //
+        //
+        //   /*CupertinoSliverNavigationBar(
+        //    //: Text("Чат"),
+        //    backgroundColor: white,
+        //    largeTitle: Stack (
+        //      children: [
+        //        Container(
+        //          margin: EdgeInsets.fromLTRB(45, 15, 0, 0),
+        //          child: Stack(
+        //            children: <Widget>[
+        //              Text(
+        //                'CHAT',
+        //                style: TextStyle(
+        //                  fontSize: 50,
+        //                  fontWeight: FontWeight.w500,
+        //                  foreground: Paint()
+        //                    ..style = PaintingStyle.stroke
+        //                    ..strokeWidth = 3
+        //                    ..color = blue,
+        //                ),
+        //              ),
+        //              Text(
+        //                'CHAT',
+        //                style: TextStyle(
+        //                  fontSize: 50,
+        //                  fontWeight: FontWeight.w500,
+        //                  color: white,
+        //                ),
+        //              ),
+        //            ],
+        //          ),
+        //        ),
+        //        Container(
+        //          margin: EdgeInsets.fromLTRB(15, 35, 0, 0),
+        //          child:  Text("Чат",
+        //            style: new TextStyle(
+        //                fontSize: 34,
+        //                fontWeight: FontWeight.w800,
+        //                color: black
+        //            ),
+        //          ),
+        //        ),
+        //      ],
+        //    ),
+        //  ),*/
+        //   SliverList(delegate: SliverChildBuilderDelegate((context, index) {
+        //     print(getChatByID(me.folders.elementAt(page).chatsID.elementAt(index)));
+        //     return ChatRow(getChatByID(me.folders.elementAt(page).chatsID.elementAt(index)));
+        //   }, childCount: me.folders.elementAt(page).chatsID.length)),
+        //   // SliverToBoxAdapter(
+        //   //   child: Padding(
+        //   //     padding: EdgeInsets.only(top: 8),
+        //   //     child: TabBarView(
+        //   //       controller: tabController,
+        //   //       children: me.folders.map((element) {
+        //   //         return SizedBox(
+        //   //           height: 35,
+        //   //           child: ChatsList(element),
+        //   //         );
+        //   //       }).toList(),
+        //   //     ),
+        //   //   ),
+        //   // )
+        //   // SliverList(delegate: SliverChildListDelegate())
+        //   /*SliverToBoxAdapter(
+        //     child: DefaultTabController(
+        //       length: me.folders.length,
+        //       child: Column(
+        //         children: [
+        //           Container(
+        //             height: 35,
+        //             child: ListView(
+        //               // shrinkWrap: true,
+        //                 scrollDirection: Axis.horizontal,
+        //                 children: [
+        //                   TabBar(
+        //                     isScrollable: true,
+        //                     labelColor: black,
+        //                     unselectedLabelColor: grey,
+        //                     indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+        //                     tabs: me.folders.map((element) {
+        //                       return SizedBox(
+        //                         height: 35,
+        //                         child: new Tab(
+        //                           text: element.folderName,
+        //                           counter: countUnread(element.folderID),
+        //                         ),
+        //                       );
+        //                     }).toList(),
+        //                   ),
+        //                   Padding(
+        //                     padding: const EdgeInsets.all(8.0),
+        //                     child: Icon(
+        //                       Icons_Chat.filter_out_24,
+        //                       color: grey,
+        //                       size: 15,
+        //                     ),
+        //                   ),
+        //                 ]),
+        //           ),
+        //           Padding(
+        //             padding: EdgeInsets.only(top: 8),
+        //             child: TabBarView(
+        //               children: me.folders.map((element) {
+        //                 return SizedBox(
+        //                   height: 35,
+        //                   child: ChatsList(element),
+        //                 );
+        //               }).toList(),
+        //             ),
+        //           )
+        //         ],
+        //       ),
+        //     ),
+        //   )*/
+        // ],
       ),
     );
     /*
@@ -144,16 +260,18 @@ class AppBarView extends StatelessWidget {
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double height;
-  _SliverAppBarDelegate({
-    @required this.height,
-    @required this.collapsedHeight,
-    @required this.expandedHeight,
-  });
+
+  _SliverAppBarDelegate(
+      {@required this.height,
+      @required this.collapsedHeight,
+      @required this.expandedHeight,
+      @required this.tabController});
 
   final double expandedHeight;
 
   final double collapsedHeight;
 
+  final TabController tabController;
   String activeKey;
 
   ScrollController menuController = new ScrollController();
@@ -188,27 +306,25 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       height: height,
-      color: AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
-      child: DefaultTabController(
-        length: me.folders.length,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          child: Column(
-            children: [
-              Container(
-                height: 35,
-                child: ListView(
-                  // shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    TabBar(
+      color:
+          AppThemeSwitcherWidget.of(context).themeData.scaffoldBackgroundColor,
+      child: Column(
+        children: [
+          Container(
+            height: 35,
+            child: ListView(
+                // shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                children: [
+                  TabBar(
                     isScrollable: true,
                     labelColor: black,
                     unselectedLabelColor: grey,
                     indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
+                    controller: tabController,
                     tabs: me.folders.map((element) {
                       return SizedBox(
-                        height: 35,
+                        //height: 35,
                         child: new Tab(
                           text: element.folderName,
                           counter: countUnread(element.folderID),
@@ -216,30 +332,17 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                       );
                     }).toList(),
                   ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Icon(CupertinoIcons.slider_horizontal_3,
-                        color: grey,
-                        size: 22,
-                      ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons_Chat.filter_out_24,
+                      color: grey,
+                      size: 15,
                     ),
-                  ]
-                ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: TabBarView(
-                  children: me.folders.map((element) {
-                    return SizedBox(
-                      height: 35,
-                      child: ChatsList(element),
-                    );
-                  }).toList(),
-                ),
-              )
-            ],
+                  ),
+                ]),
           ),
-        ),
+        ],
       ),
     );
   }
