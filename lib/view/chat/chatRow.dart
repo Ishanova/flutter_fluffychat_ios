@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_fluffychat_ios/helper/avatarka.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/view/message/messagesView.dart';
 import 'package:flutter_fluffychat_ios/helper//indicator.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
+import 'package:flutter_fluffychat_ios/icons_chat.dart';
 
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
@@ -18,38 +20,13 @@ class ChatRow extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
-            CupertinoPageRoute(builder: (context) => MessagesView(user, toRow))///!!!!
+            CupertinoPageRoute(builder: (context) => MessagesView(user, toRow))
         );
       },
       child: Container(
-         // color: Color(0xFF00FF00),
           child: Row(
             children: [
-              Stack(
-                alignment: Alignment.bottomRight,
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 15, horizontal: 6),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(30),
-                      child: Image.asset("assets/ac.jpg", width: 60, height: 60,),
-                    ),
-                  ),
-
-                  Visibility(
-                      visible:   (user.onlineStatus.isOnline && toRow.chatName == "") ? true : false,
-                      child: Container(
-                    margin: EdgeInsets.symmetric(vertical: 18, horizontal: 9),
-                    width: 10,
-                    height: 10,
-                    decoration: BoxDecoration(
-                      color: green,
-                      shape: BoxShape.circle,
-                    ),
-                  )
-                  )
-                ],
-              ),
+              Avatarka("assets/ac.jpg", isOnline(toRow)),
               Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,19 +35,28 @@ class ChatRow extends StatelessWidget {
                           width: 250,
                           child: Row(
                             children: [
-                              Text(toRow.getChatName(user.userID), style: new TextStyle(
-                                  fontFamily: "SFProText",
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.bold,
-                                  color: black
-                              ),),
+                              Flexible(
+                                child: Container(
+                                  child: Text(
+                                    toRow.getChatName(user.userID),
+                                    overflow: TextOverflow.clip,
+                                    maxLines: 1,
+                                    softWrap: false,
+                                    style: new TextStyle(
+                                      fontFamily: "SFProText",
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                      color: black
+                                  ),),
+                                ),
+                              ),
                               Visibility(
                                 visible: user.isMute(toRow.chatName),
                                 child: Container(
                                   margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
                                   child: Icon(
-                                    CupertinoIcons.volume_off,
-                                    size: 17,
+                                    Icons_Chat.mute_out_16,
+                                    size: 16,
                                     color: grey,
                                   ),
                                 ),
@@ -146,4 +132,8 @@ String NameView(String fullname){
 
 bool isFromMe(String user, String sender){
   return user == sender;
+}
+
+bool isOnline(Chat chat){
+  return (me.onlineStatus.isOnline && chat.chatName == "") ? true : false;
 }
