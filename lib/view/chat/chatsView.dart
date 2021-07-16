@@ -11,12 +11,24 @@ class ChatsList extends StatelessWidget {
   Folder tabChats;
 
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children:
-        tabChats.chatsID.map((chatID) {
-          return new ChatRow(getChatByID(chatID));
-        }).toList(),
+    int totalCount = tabChats.chatsID.length;
+    return CustomScrollView(
+        semanticChildCount: totalCount, //общее количество элементов
+        slivers: [
+          SliverSafeArea(
+              top: false,
+              /*minimum: const EdgeInsets.only(
+                  top: 8),*/
+              sliver: SliverList(
+                  delegate: SliverChildBuilderDelegate((
+                      context, index) =>
+                  index < totalCount //чтобы не выпадало за количество элементов (на всякий случай)
+                      ? ChatRow(getChatByID(tabChats.chatsID.elementAt(index)))
+                      : null
+                  )
+              )
+          ),
+        ]
     );
   }
 

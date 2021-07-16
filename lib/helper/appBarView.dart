@@ -26,7 +26,6 @@ class _AppBarViewState extends State<AppBarView>
   int page = 0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = new TabController(length: me.folders.length, vsync: this);
     tabController.addListener(() {
@@ -88,8 +87,9 @@ class _AppBarViewState extends State<AppBarView>
               delegate: _SliverAppBarDelegate(
                   tabController: tabController,
                   collapsedHeight: height - 65,
-                  expandedHeight: height - 42,
-                  height: 60),
+                  expandedHeight: height - 65,
+                  height: 38
+              ),
               pinned: true,
             ),
           ];

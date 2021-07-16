@@ -15,8 +15,6 @@ class ChatRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    print("____1____");
     return GestureDetector(
       onTap: () {
         Navigator.push(context,
@@ -61,8 +59,10 @@ class ChatRow extends StatelessWidget {
                           child: Row(
                             children: [
                               Text(toRow.getChatName(user.userID), style: new TextStyle(
+                                  fontFamily: "SFProText",
                                   fontSize: 18,
-                                  fontWeight: FontWeight.bold
+                                  fontWeight: FontWeight.bold,
+                                  color: black
                               ),),
                               Visibility(
                                 visible: user.isMute(toRow.chatName),
@@ -86,6 +86,7 @@ class ChatRow extends StatelessWidget {
                                 ? "Вы: "
                                 : NameView(toRow.messageList.last.senderID) + ": "),
                             style: TextStyle (
+                                fontFamily: "SFProText",
                                 color: grey
                             ),
                           ),
@@ -95,6 +96,10 @@ class ChatRow extends StatelessWidget {
                             overflow: TextOverflow.clip,
                             maxLines: 1,
                             softWrap: false,
+                            style: TextStyle(
+                                fontFamily: "SFProText",
+                                color: black
+                            ),
                           ),
                         ),),
 
@@ -102,6 +107,7 @@ class ChatRow extends StatelessWidget {
                           margin: EdgeInsets.symmetric(horizontal: 6),
                           child: Text(" · ${toRow.messageList.last.time}",
                             style: TextStyle(
+                              fontFamily: "SFProText",
                               color: grey,
                             ),
                           ),
