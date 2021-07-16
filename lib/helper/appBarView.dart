@@ -1,6 +1,4 @@
 import 'package:flutter/cupertino.dart';
-// import 'package:flutter/material.dart';
-
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/helper/is_nav_bar.dart';
 import 'package:flutter_fluffychat_ios/helper/tab_controller_remake.dart';
@@ -10,9 +8,7 @@ import 'package:flutter_fluffychat_ios/models/folder.dart';
 import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 import 'package:flutter_fluffychat_ios/theme/theme.dart';
 import 'package:flutter_fluffychat_ios/icons_chat.dart';
-import 'package:flutter_fluffychat_ios/view/chat/chatRow.dart';
 import 'dart:math' as math;
-
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 
 class AppBarView extends StatefulWidget {
@@ -50,6 +46,7 @@ class _AppBarViewState extends State<AppBarView>
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CupertinoButton(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                     onPressed: () {},
                     child: Icon(
                       Icons_Chat.call_plus_out_28,
@@ -58,6 +55,7 @@ class _AppBarViewState extends State<AppBarView>
                     ),
                   ),
                   CupertinoButton(
+                    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
                     onPressed: () {},
                     child: Icon(
                       Icons_Chat.pen_out_28,
@@ -75,14 +73,24 @@ class _AppBarViewState extends State<AppBarView>
                 style: TextStyle(
                   fontSize: 55,
                   fontWeight: FontWeight.w700,
-                  fontFamily: "SFProDisplay",
+                  fontFamily: "SFProDisplayBold",
                 ),
               ),
-              strokeColor: darkBlue,
+              //strokeColor: darkBlue,
               largeTitle: Text(
                 "Чат",
               ),
+              //middle: CupertinoSearchTextField (),
             ),
+
+            SliverPersistentHeader(
+              delegate: _SliverSearchBarDelegate(
+                  collapsedHeight: height - 49,
+                  expandedHeight: height - 49,
+                  height: 40),
+              pinned: false,
+            ),
+
             SliverPersistentHeader(
               delegate: _SliverAppBarDelegate(
                   tabController: tabController,
@@ -324,7 +332,6 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                     controller: tabController,
                     tabs: me.folders.map((element) {
                       return SizedBox(
-                        //height: 35,
                         child: new Tab(
                           text: element.folderName,
                           counter: countUnread(element.folderID),
@@ -369,4 +376,46 @@ int countUnread(int folderID) {
     }
   }
   return counter;
+}
+
+
+class _SliverSearchBarDelegate extends SliverPersistentHeaderDelegate{
+  final double expandedHeight;
+  final double height;
+  final double collapsedHeight;
+  _SliverSearchBarDelegate(
+      {@required this.height,
+        @required this.collapsedHeight,
+        @required this.expandedHeight});
+
+  @override
+  double get minExtent => collapsedHeight;
+
+  @override
+  double get maxExtent => math.max(expandedHeight, minExtent);
+
+@override
+Widget build(
+    BuildContext context, double shrinkOffset, bool overlapsContent) {
+  return Container(
+      padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+      child: CupertinoSearchTextField(
+        prefixInsets: EdgeInsetsDirectional.fromSTEB(12, 10, 8, 10),
+        controller: TextEditingController(
+          text: "Поиск",
+        ),
+        backgroundColor: Color.fromRGBO(118, 118, 128, 0.12),
+          style: TextStyle(
+              color: grey,
+              fontSize: 17,
+              fontWeight: FontWeight.w400,
+              fontFamily: "SFProtext"),
+        ),
+      );
+}
+
+  @override
+  bool shouldRebuild(_SliverSearchBarDelegate oldDelegate) {
+    return true; // activeKey != oldDelegate.activeKey; //expandedHeight != oldDelegate.expandedHeight || collapsedHeight != oldDelegate.collapsedHeight;
+  }
 }

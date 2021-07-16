@@ -56,7 +56,7 @@ class Indicator extends StatelessWidget {
       case 1:
         this.width = 17;
         this.height = 17;
-        this.blur = 2;
+        this.blur = 8;
         this.spread = 1;
         this.opacity = 0.5;
         this.counter = counter;
@@ -68,9 +68,9 @@ class Indicator extends StatelessWidget {
       case 2:
         this.width = 24;
         this.height = 24;
-        this.blur = 4;
+        this.blur = 8;
         this.spread = 2;
-        this.opacity = 0.7;
+        this.opacity = 0.5;
         this.counter = counter;
         this.textSize = 15;
         this.padding = 0;

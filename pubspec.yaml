@@ -80,9 +80,14 @@ flutter:
         - asset: assets/fonts/SF_Pro/SF-Pro-Text-SemiboldItalic.otf
           style: italic
 
+    - family: Icons_Mute
+      fonts:
+       - asset: assets/fonts/Icons_Mute.ttf
+
     - family:  Icons_Chat
       fonts:
         - asset: assets/fonts/Icons_Chat.ttf
+
 
 
     # An image asset can refer to one or more resolution-specific "variants", see

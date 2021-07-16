@@ -6,7 +6,7 @@ import 'package:flutter_fluffychat_ios/view/message/messagesView.dart';
 import 'package:flutter_fluffychat_ios/helper//indicator.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
-import 'package:flutter_fluffychat_ios/icons_chat.dart';
+import 'package:flutter_fluffychat_ios/icons_mute.dart';
 
 import 'package:flutter_fluffychat_ios/models/chat.dart';
 
@@ -32,7 +32,7 @@ class ChatRow extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Container(
-                          width: 250,
+                          //width: 250,
                           child: Row(
                             children: [
                               Flexible(
@@ -44,8 +44,8 @@ class ChatRow extends StatelessWidget {
                                     softWrap: false,
                                     style: new TextStyle(
                                       fontFamily: "SFProText",
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
+                                      fontSize: 17,
+                                      fontWeight: FontWeight.w600,
                                       color: black
                                   ),),
                                 ),
@@ -53,9 +53,9 @@ class ChatRow extends StatelessWidget {
                               Visibility(
                                 visible: user.isMute(toRow.chatName),
                                 child: Container(
-                                  margin: EdgeInsets.symmetric(vertical: 0, horizontal: 6),
+                                  margin: EdgeInsets.fromLTRB(4, 3, 0, 3),
                                   child: Icon(
-                                    Icons_Chat.mute_out_16,
+                                    Icons_Mute.mute_fil_16,
                                     size: 16,
                                     color: grey,
                                   ),
@@ -73,28 +73,37 @@ class ChatRow extends StatelessWidget {
                                 : NameView(toRow.messageList.last.senderID) + ": "),
                             style: TextStyle (
                                 fontFamily: "SFProText",
-                                color: grey
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: transparentGrey
                             ),
                           ),
                         ),
-                        Flexible(child: Container(
-                          child: Text(toRow.messageList.last.messageText,
-                            overflow: TextOverflow.clip,
-                            maxLines: 1,
-                            softWrap: false,
-                            style: TextStyle(
-                                fontFamily: "SFProText",
-                                color: black
+                        Flexible(
+                          child:
+                          Container(
+                            child: Text(toRow.messageList.last.messageText,
+                              overflow: TextOverflow.clip,
+                              maxLines: 1,
+                              softWrap: false,
+                              style: TextStyle(
+                                  fontFamily: "SFProText",
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 15,
+                                  color: grey
+                              ),
                             ),
                           ),
-                        ),),
+                        ),
 
                         Container(
-                          margin: EdgeInsets.symmetric(horizontal: 6),
+                          margin: EdgeInsets.fromLTRB(4, 2, 0, 2),
                           child: Text(" · ${toRow.messageList.last.time}",
                             style: TextStyle(
                               fontFamily: "SFProText",
-                              color: grey,
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12,
+                              color: transparentGrey,
                             ),
                           ),
                         ),
