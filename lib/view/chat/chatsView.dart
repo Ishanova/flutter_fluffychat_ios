@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_fluffychat_ios/models/folder.dart';
 import 'package:flutter_fluffychat_ios/models/user.dart';
 import 'package:flutter_fluffychat_ios/models/chat.dart';
@@ -9,10 +10,17 @@ import 'chatRow.dart';
 
 class ChatsList extends StatelessWidget {
   Folder tabChats;
+  List<ScrollController> _scrollControllers = <ScrollController>[];
+  // ScrollController _scrollController;
+
+  ChatsList(this.tabChats, [this._scrollControllers]){
+    // _scrollController = _scrollControllers[tabChats.folderID];
+  }
 
   Widget build(BuildContext context) {
     int totalCount = tabChats.chatsID.length;
     return CustomScrollView(
+      // controller: _scrollController,
         semanticChildCount: totalCount, //общее количество элементов
         slivers: [
           SliverSafeArea(
@@ -30,10 +38,6 @@ class ChatsList extends StatelessWidget {
           ),
         ]
     );
-  }
-
-  ChatsList(Folder tabName) {
-    this.tabChats = tabName;
   }
 }
 

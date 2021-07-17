@@ -22,7 +22,8 @@ class TestFlutter extends StatelessWidget {
     FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     return CupertinoApp(
       theme: CupertinoThemeData(
-        textTheme: CupertinoTextThemeData(textStyle: TextStyle(fontFamily: "SFProText"))
+        textTheme: CupertinoTextThemeData(textStyle: TextStyle(fontFamily: "SFProText")),
+        brightness: Brightness.light
       ),
       debugShowCheckedModeBanner: false,
         home: AppBarView(),

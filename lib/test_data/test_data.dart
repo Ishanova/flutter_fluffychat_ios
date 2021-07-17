@@ -6,7 +6,6 @@ import 'package:flutter_fluffychat_ios/models/folder.dart';
 
 List chats = [
 
-
   Chat("tanya pyshka",
       {
         User("Иван Петров", "image", OnlineStatus(true, "14 мая 2021", "00:09"), {"Все мы"}, {Folder("Все", {"1111", "2222", "3333", "4444", "5555"}, 1), Folder("Непрочитано", {"1111", "3333"}, 2), Folder("Учёба", {"5555"}, 3), Folder("Мяу", {"3333"}, 4)}),

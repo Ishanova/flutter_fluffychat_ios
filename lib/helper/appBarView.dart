@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
 import 'package:flutter_fluffychat_ios/helper/is_nav_bar.dart';
 import 'package:flutter_fluffychat_ios/helper/tab_controller_remake.dart';
@@ -10,34 +11,81 @@ import 'package:flutter_fluffychat_ios/theme/theme.dart';
 import 'package:flutter_fluffychat_ios/icons_chat.dart';
 import 'dart:math' as math;
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
+import 'package:flutter_fluffychat_ios/search/search_logic.dart';
+import 'package:flutter_fluffychat_ios/search/cupertino_style_search.dart';
+
+import 'avatarka.dart';
+import 'cupertinoSearch.dart';
+import 'dart:developer' as developer;
+
+List<SearchItem> search(String text) {
+  return items
+      .where((element) =>
+      element.name.toLowerCase().contains(text.toLowerCase()))
+      .toList();
+}
+
+final List<SearchItem> items = chats.map((element)  {
+  print(element.toString());
+  return SearchItem(element.chatName,
+      Avatarka("assets/ac.jpg", false));
+}).toList();
 
 class AppBarView extends StatefulWidget {
+  final List<SearchItem> Function(String text) search;
+
+  const AppBarView({Key key, this.search}) : super(key: key);
+
   @override
   _AppBarViewState createState() => _AppBarViewState();
 }
 
-class _AppBarViewState extends State<AppBarView>
-    with SingleTickerProviderStateMixin {
+class _AppBarViewState extends State<AppBarView> with SingleTickerProviderStateMixin {
   TabController tabController;
+  FocusNode _focusNode;
+  List<ScrollController> scrollController = <ScrollController>[];
   int page = 0;
+
+
   @override
   void initState() {
     super.initState();
     tabController = new TabController(length: me.folders.length, vsync: this);
     tabController.addListener(() {
-      print(tabController.index);
-      print(me.folders.elementAt(page).chatsID);
+      developer.log(tabController.index.toString(), name: 'appBarView_tabControllerIndex');
+      developer.log(me.folders.elementAt(page).chatsID.toString(), name: 'appBarView_chatsInFolder');
       setState(() {
         page = tabController.index;
       });
+      scrollController.forEach((controller) => controller.jumpTo(controller.position.maxScrollExtent));
+      // scrollController.initialScrollOffset;
     });
+    _focusNode = FocusNode();
+    _focusNode.addListener(() {
+      if (_focusNode.hasFocus) {
+        showPlatformSearch(
+          context: context,
+          delegate: CupertinoSearchDelegate(widget.search),
+        );
+      }
+      _focusNode.unfocus();
+    });
+  }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    _focusNode.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     double height = 100;
     return CupertinoPageScaffold(
+      // backgroundColor: white,
       child: NestedScrollView(
+        // controller: scrollController,
         headerSliverBuilder: (context, flag){
           return [
             ISSliverNavigationBar(
@@ -85,29 +133,33 @@ class _AppBarViewState extends State<AppBarView>
 
             SliverPersistentHeader(
               delegate: _SliverSearchBarDelegate(
-                  collapsedHeight: height - 49,
-                  expandedHeight: height - 49,
-                  height: 40),
+                search,
+                _focusNode,
+                collapsedHeight: height - 45,
+                expandedHeight: height - 45,
+                height: 0),
               pinned: false,
             ),
 
             SliverPersistentHeader(
               delegate: _SliverAppBarDelegate(
-                  tabController: tabController,
+                // this.scrollController,
+                tabController: tabController,
                   collapsedHeight: height - 65,
                   expandedHeight: height - 65,
-                  height: 38
+                  height: 38,
               ),
               pinned: true,
             ),
           ];
         },
         body: TabBarView(
-              controller: tabController,
-              children: me.folders.map((element) {
-                return ChatsList(element);
-              }).toList(),
-            )
+          dragStartBehavior: DragStartBehavior.start,
+          controller: tabController,
+          children: me.folders.map((element) {
+            return ChatsList(element, scrollController);
+            }).toList(),
+          )
 
         // [
         //
@@ -268,8 +320,10 @@ class _AppBarViewState extends State<AppBarView>
 
 class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   final double height;
+  // List<ScrollController> scrollController = <ScrollController>[];
 
   _SliverAppBarDelegate(
+      // this.scrollController,
       {@required this.height,
       @required this.collapsedHeight,
       @required this.expandedHeight,
@@ -331,6 +385,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                     indicatorPadding: EdgeInsets.symmetric(horizontal: 15),
                     controller: tabController,
                     tabs: me.folders.map((element) {
+                      // scrollController.add(new ScrollController());
                       return SizedBox(
                         child: new Tab(
                           text: element.folderName,
@@ -380,13 +435,20 @@ int countUnread(int folderID) {
 
 
 class _SliverSearchBarDelegate extends SliverPersistentHeaderDelegate{
+  Function(String) search;
+  FocusNode _focusNode;
   final double expandedHeight;
   final double height;
   final double collapsedHeight;
   _SliverSearchBarDelegate(
-      {@required this.height,
-        @required this.collapsedHeight,
-        @required this.expandedHeight});
+    this.search,
+    this._focusNode,
+    {
+      @required this.height,
+      @required this.collapsedHeight,
+      @required this.expandedHeight
+    }
+  );
 
   @override
   double get minExtent => collapsedHeight;
@@ -394,16 +456,72 @@ class _SliverSearchBarDelegate extends SliverPersistentHeaderDelegate{
   @override
   double get maxExtent => math.max(expandedHeight, minExtent);
 
+
+
 @override
-Widget build(
-    BuildContext context, double shrinkOffset, bool overlapsContent) {
-  return Container(
+Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  return Padding(
+    padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
+    child: CupertinoTextField(
+      decoration: BoxDecoration(color: transparentGrey.withAlpha(20), borderRadius: BorderRadius.circular(10)),
+      padding: EdgeInsets.all(10),
+      prefix: Padding(
+        padding: const EdgeInsets.only(left: 12.0),
+        child: Icon(
+          CupertinoIcons.search,
+          color: grey,
+          size: 16,
+        ),
+      ),
+      cursorColor: blue,
+      style: TextStyle(
+        fontSize: 17,
+        color: darkText_secondary,
+        fontFamily: "SFProText",
+        fontWeight: FontWeight.normal
+      ),
+      placeholder: 'Поиск',
+      placeholderStyle: TextStyle(
+        fontSize: 17,
+        color: darkText_secondary,
+        fontFamily: "SFProText",
+        fontWeight: FontWeight.normal
+      ),
+      readOnly: true,
+      onTap: () {
+        showPlatformSearch(
+          context: context,
+          delegate: CupertinoSearchDelegate(search),
+        );
+        // Navigator.push(
+        //     context,
+        //     CupertinoPageRoute(
+        //         builder: (context) => CupertinoSearch(search)));
+      },
+      // readOnly: true,
+    ),
+    /*child: GestureDetector(
+      onTap: () {
+        showPlatformSearch(
+          context: context,
+          delegate: CupertinoSearchDelegate(search),
+        );
+      },
+      child: CupertinoSearchTextField(
+        focusNode: _focusNode,
+      ),
+    ),*/
+  );
+  /*Container(
       padding: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
       child: CupertinoSearchTextField(
+        suffixMode: OverlayVisibilityMode.always,
         prefixInsets: EdgeInsetsDirectional.fromSTEB(12, 10, 8, 10),
         controller: TextEditingController(
           text: "Поиск",
         ),
+        // placeholder: 'Поиск',
+        // onChanged: () => ,
         backgroundColor: Color.fromRGBO(118, 118, 128, 0.12),
           style: TextStyle(
               color: grey,
@@ -411,11 +529,11 @@ Widget build(
               fontWeight: FontWeight.w400,
               fontFamily: "SFProtext"),
         ),
-      );
+      );*/
 }
 
   @override
   bool shouldRebuild(_SliverSearchBarDelegate oldDelegate) {
-    return true; // activeKey != oldDelegate.activeKey; //expandedHeight != oldDelegate.expandedHeight || collapsedHeight != oldDelegate.collapsedHeight;
+    return true;
   }
 }
