@@ -1,71 +1,79 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter_fluffychat_ios/helper/colors.dart';
 
 class Indicator extends StatelessWidget {
-  final color = const Color.fromARGB(255, 0, 145, 255);
-
-  bool isBig;
   int counter;
-  double width, height, blur, spread, opacity;
+  double width, height, blur, spread, opacity, textSize, padding;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        constraints: BoxConstraints(minHeight: height, minWidth: width),
-
-        margin: EdgeInsets.fromLTRB(5, 3, 0, 0),
-        padding: EdgeInsets.symmetric(horizontal: 3),
-
+    return counter != 0 || counter == null
+        ? Container(
+        height: height,
+        constraints: BoxConstraints(minWidth: width),
+        margin: EdgeInsets.fromLTRB(4, 4, 0, 0),
+        padding: EdgeInsets.only(top: 2),
         decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(30),
-            boxShadow: [
-              BoxShadow(
-                color: color.withOpacity(opacity),
-                spreadRadius: spread,
-                blurRadius: blur,
-              )
-            ],
+          color: blue,
+          borderRadius: BorderRadius.circular(30),
+          boxShadow: [
+            BoxShadow(
+              color: blue.withOpacity(opacity),
+              spreadRadius: spread,
+              blurRadius: blur,
+            )
+          ],
         ),
-        child: Text("$counter",
-            textAlign: TextAlign.center,
-            style: new TextStyle(
-              fontSize: 11,
-              color: Colors.white
-            ),
+        child: (counter == null)
+            ? Text(
+          "",
         )
-    );
+            : Text(
+          "$counter",
+          textAlign: TextAlign.center,
+          style: new TextStyle(
+            fontFamily: "SFProText",
+            fontSize: textSize,
+            color: white,
+          ),
+        ))
+        : Container();
   }
 
   Indicator(int size, [int counter]) {
     switch (size) {
-        //small size
+      //small size
       case 0:
         this.width = 6;
         this.height = 6;
         this.blur = 1;
         this.spread = 1;
         this.opacity = 0.2;
+        this.padding = 0;
         break;
 
-        //medium size
+      //medium size
       case 1:
-        this.width = 13;
-        this.height = 13;
-        this.blur = 2;
+        this.width = 17;
+        this.height = 17;
+        this.blur = 8;
         this.spread = 1;
         this.opacity = 0.5;
         this.counter = counter;
+        this.textSize = 11;
+        this.padding = 4;
         break;
 
-        //large size
+      //large size
       case 2:
         this.width = 24;
         this.height = 24;
-        this.blur = 4;
+        this.blur = 8;
         this.spread = 2;
-        this.opacity = 0.7;
+        this.opacity = 0.5;
         this.counter = counter;
+        this.textSize = 15;
+        this.padding = 0;
         break;
     }
   }

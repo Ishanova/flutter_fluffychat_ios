@@ -3,47 +3,55 @@ import 'message.dart';
 
 class Chat {
   String chatName; //название чата
-  List<int> memberList; //список id участников чата
+  Set<User> memberList; //список участников чата
   List<Message> messageList; //список сообщений в чате
-  bool isStudy; // учебное или неучебное
+  String chatID;
 
-  Chat(String chatName, List<int> memberList, List<Message> messageList,
-      bool isStudy) {
+  Chat(String chatName, Set<User> memberList, List<Message> messageList, String chatID) {
     this.chatName = chatName;
     this.memberList = memberList;
     this.messageList = messageList;
-    this.isStudy = isStudy;
+    this.chatID = chatID;
   }
-  String getChatName(){
-    return chatName;
-  }
-
-  List<int> getMemberList() {
+  Set<User> getMemberList(){
     return memberList;
   }
-
-  List<Message> getMessageList() {
+  List<Message> getMessageList(){
     return messageList;
   }
-
-/*  User companionObj(int userID) {
-    for (int i = 0; i < memberList.length; i++) {
-      if (memberList[i] == userID) {
+  String getChatName(String userID){
+    if(chatName == ""){
+      return this.companion(userID);
+    }
+    return chatName;
+  }
+  String companion(String userID){
+    for(int i = 0; i < memberList.length; i++){
+      if(memberList.toList()[i].userID == userID){
         continue;
       }
-      return memberList[i];
+      return memberList.toList()[i].userID;
+    }
+    return "default name";
+  }
+
+  User companionObj(String userID){
+    for(int i = 0; i < memberList.length; i++){
+      if(memberList.toList()[i].userID == userID){
+        continue;
+      }
+      return memberList.toList()[i];
     }
     return User.defArgs();
-  }*/
+  }
 
-  int unreadCount(String userID) {
+  int unreadCount (String userID) {
     int count = 0;
-    for (int i = messageList.length - 1; i != 0; i--) {
-      if (messageList[i].readList.contains(userID)) {
-        break;
-      }
+    for (int i=messageList.length-1; i!=0; i--) {
+      if (messageList[i].readList.contains(userID)) {break;}
       count++;
     }
-    return count;
+   return count;
   }
 }
+
