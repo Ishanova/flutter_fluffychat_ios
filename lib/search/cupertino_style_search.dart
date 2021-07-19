@@ -23,8 +23,37 @@ class CupertinoSearchDelegate extends AbstractPlatformSearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final List<SearchItem> result = search(query);
-    return SearchItemsWidget(result);
+    return SafeArea(
+      child: Center(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/image2.png",
+              width: 80,
+              height: 80,
+            ),
+            Container(
+              width: 0,
+              height: 20,
+            ),
+            Text(
+              'Начни искать по ФИО, номеру ИСУ\nили учебной группе',
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: TextStyle(
+                  color: transparentGrey,
+                  fontSize: 13,
+                  fontFamily: "SFProText",
+                  fontWeight: FontWeight.normal),
+            ),
+          ],
+        ),
+      ),
+    );
+    /*final List<SearchItem> result = search(query);
+    return SearchItemsWidget(result);*/
   }
 
   @override
@@ -41,22 +70,20 @@ class CupertinoSearchDelegate extends AbstractPlatformSearchDelegate {
           prefixInsets: EdgeInsets.symmetric(horizontal: 12, vertical: 10),
           placeholder: 'Поиск',
           placeholderStyle: TextStyle(
-            color: darkText_secondary,
-            fontSize: 17,
-            fontFamily: "SFProText",
-            fontWeight: FontWeight.normal
-          ),
+              color: darkText_secondary,
+              fontSize: 17,
+              fontFamily: "SFProText",
+              fontWeight: FontWeight.normal),
           controller: queryTextController,
           focusNode: focusNode,
-          onSubmitted: (String _) {
+          onChanged: (String _) {
             showResults(context);
           },
           style: TextStyle(
-            color: darkText_secondary,
-            fontSize: 17,
-            fontFamily: "SFProText",
-            fontWeight: FontWeight.normal
-          ),
+              color: darkText_secondary,
+              fontSize: 17,
+              fontFamily: "SFProText",
+              fontWeight: FontWeight.normal),
         ),
         trailing: CupertinoButton(
           child: const Text('Отменить'),
@@ -70,7 +97,6 @@ class CupertinoSearchDelegate extends AbstractPlatformSearchDelegate {
     );
   }
 }
-
 
 class SearchItem {
   final String name;
@@ -103,35 +129,33 @@ class SearchItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return small
         ? Container(
-      color: white,
-      child: Padding(
-        padding:
-        const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
-        child: Text(
-          item.name,
-        ),
-      ),
-    )
-        : Container(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(children: [
-          Row(
-            children: [
-              item.asset,
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: Text(
-                  item.name,
-                  style: TextStyle(
-                    color: black
-                  ),
-                ),
+            color: white,
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
+              child: Text(
+                item.name,
               ),
-            ],
-          ),
-        ]),
-      ),
-    );
+            ),
+          )
+        : Container(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(children: [
+                Row(
+                  children: [
+                    item.asset,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                      child: Text(
+                        item.name,
+                        style: TextStyle(color: black),
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
+            ),
+          );
   }
 }

@@ -30,7 +30,7 @@ abstract class AbstractPlatformSearchDelegate<T> {
   }
 
   void showResults(BuildContext context) {
-    focusNode?.unfocus();
+    // focusNode?.unfocus();
     _currentBody = _SearchBody.results;
   }
 
