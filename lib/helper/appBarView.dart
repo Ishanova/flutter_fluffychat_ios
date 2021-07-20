@@ -13,9 +13,10 @@ import 'dart:math' as math;
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 import 'package:flutter_fluffychat_ios/search/search_logic.dart';
 import 'package:flutter_fluffychat_ios/search/cupertino_style_search.dart';
+import 'package:flutter_fluffychat_ios/helper/decor.dart';
 
 import 'avatarka.dart';
-import 'cupertinoSearch.dart';
+import '../old/cupertinoSearch.dart';
 import 'dart:developer' as developer;
 
 List<SearchItem> search(String text) {
@@ -379,6 +380,7 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
                 scrollDirection: Axis.horizontal,
                 children: [
                   TabBar(
+                    indicator: TabIndicator(color: blue, radius: 2),
                     isScrollable: true,
                     labelColor: black,
                     unselectedLabelColor: grey,

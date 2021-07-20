@@ -59,9 +59,10 @@ class CupertinoSearchDelegate extends AbstractPlatformSearchDelegate {
   @override
   Widget buildScaffold(Widget body, BuildContext context) {
     return CupertinoPageScaffold(
-      // backgroundColor: white,
+       backgroundColor: white,
       navigationBar: CupertinoNavigationBar(
-        // backgroundColor: white,
+        border: null,
+         backgroundColor: white,
         padding: EdgeInsetsDirectional.only(start: 0),
         transitionBetweenRoutes: true,
         leading: SizedBox.shrink(),
