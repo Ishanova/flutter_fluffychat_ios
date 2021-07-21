@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
-import 'package:flutter_fluffychat_ios/helper/indicator.dart';
+import 'package:flutter_fluffychat_ios/helper/counter.dart';
 import 'package:flutter_fluffychat_ios/test_data/test_data.dart';
 
 
@@ -137,7 +137,7 @@ class TabButton extends StatelessWidget {
                 // color: selectedPage == pageNumber ? CupertinoColors.white : CupertinoColors.white,
               ),
             ),
-            Indicator(1, 5),
+            Counter(1, 5),
           ],
         ),
       ),

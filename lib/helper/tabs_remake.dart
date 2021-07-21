@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-import 'package:flutter_fluffychat_ios/helper/indicator.dart';
+import 'package:flutter_fluffychat_ios/helper/counter.dart';
 import 'dart:async';
 import 'dart:ui' show lerpDouble;
 import 'package:flutter/cupertino.dart';
@@ -129,7 +129,7 @@ class Tab extends StatelessWidget {
           //   margin: iconMargin,
           // ),
           _buildLabelText(),
-          Indicator(1, counter)
+          Counter(1, counter)
         ],
       );
     // }

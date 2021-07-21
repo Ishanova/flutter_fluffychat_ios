@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_fluffychat_ios/helper/colors.dart';
-import 'package:flutter_fluffychat_ios/helper/indicator.dart';
+import 'package:flutter_fluffychat_ios/helper/counter.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_fluffychat_ios/view/chat/chatsView.dart';
 
@@ -52,7 +52,7 @@ class _ChatTabState extends State<ChatTab> {
           children: [
             Text(widget.tabName,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-            (widget.counter != 0) ? Indicator(1, widget.counter) : Text(""),
+            (widget.counter != 0) ? Counter(1, widget.counter) : Text(""),
           ],
         ),
       ),

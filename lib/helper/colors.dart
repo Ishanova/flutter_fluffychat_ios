@@ -4,6 +4,7 @@ final green = const Color.fromRGBO(34, 178, 23, 1);
 final blue = const Color.fromRGBO(0, 145, 255, 1);
 final darkBlue = const Color.fromRGBO(45, 47, 182, 0.5);
 final grey = const Color.fromRGBO(60, 60, 67, 0.6); ///
+final iconGrey = const Color.fromRGBO(67, 66, 68, 0.5);
 final transparentGrey = const Color.fromRGBO(60, 60, 67, 0.3);
 final black = const Color.fromARGB(255, 0, 0, 0);
 final white = const Color.fromARGB(255, 255, 255, 255);
